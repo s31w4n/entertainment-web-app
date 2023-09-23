@@ -27,7 +27,6 @@ module.exports = {
       "app-heading-sm": "var(--font-heading-sm)",
       "app-body-md": "var(--font-body-md)",
       "app-body-sm": "var(--font-body-sm",
-      "app-body-xsm": "var(--font-body-xsm",
     },
     gridTemplateColumns: {
       main: "auto, 1fr",

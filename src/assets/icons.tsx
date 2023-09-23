@@ -152,7 +152,7 @@ export function StarIcon({ className }: { className?: string }) {
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 47.94 47.94"
-      className={className}
+      className=""
     >
       <path
         fill="#ED8A19"

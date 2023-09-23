@@ -2,6 +2,7 @@
 export interface Media {
   id: number;
   title: string;
+  tagline: string;
   description: string;
   backdrop_path: string;
   poster_path: string;
@@ -98,4 +99,39 @@ export interface BookmarkButtonProps {
 export interface SearchButtonProps {
   category: string;
   id: number;
+}
+
+// Details Image Props
+export interface DetailsImageProps {
+  poster_path: string;
+  title: string;
+  isBookmarked: boolean;
+}
+
+// Details Title Props
+export interface DetailsTitleProps {
+  title: string;
+}
+
+// Details Rating Props
+export interface DetailsRatingProps {
+  vote_average: number;
+}
+
+// Details Info Props
+export interface DetailsInfoProps {
+  duration: string;
+  language: string;
+  year: string;
+  status: string;
+}
+
+// Details Synopsis Props
+export interface DetailsSynopsisProps {
+  description: string;
+}
+
+// Details Genres Props
+export interface DetailsGenresProps {
+  genres: string[];
 }

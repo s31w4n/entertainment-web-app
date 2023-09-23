@@ -13,6 +13,13 @@ import Loading from "./Loading";
 import SearchButton from "./SearchButton";
 import BookmarkButton from "./BookmarkButton";
 import Footer from "./Footer";
+import BackButton from "./BackButton";
+import DetailsImage from "./DetailsImage";
+import DetailsTitle from "./DetailsTitle";
+import DetailsRating from "./DetailsRating";
+import DetailsInfo from "./DetailsInfo";
+import DetailsSynopsis from "./DetailsSynopsis";
+import DetailsGenres from "./DetailsGenres";
 
 export {
   Layout,
@@ -30,4 +37,11 @@ export {
   SearchButton,
   BookmarkButton,
   Footer,
+  DetailsImage,
+  BackButton,
+  DetailsTitle,
+  DetailsRating,
+  DetailsInfo,
+  DetailsSynopsis,
+  DetailsGenres,
 };

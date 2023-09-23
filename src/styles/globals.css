@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-red: #fc4545;
+  --color-dark-blue: #10141e;
+  --color-semi-dark-blue: #171e31;
+  --color-greyish-blue: #5a6a90;
+  --color-placeholder: #86888d;
+  --color-grey: #ffffffbf;
+  --color-pure-white: #000000;
+
+  --font-heading-lg: 2rem;
+  --font-heading-md: 1.5rem;
+  --font-heading-sm: 1.125rem;
+  --font-body-md: 0.9375rem;
+  --font-body-sm: 0.8125rem;
+  --font-body-xsm: 0.75rem;
+}
+
+body {
+  background-color: var(--color-dark-blue);
+  color: #fff;
+}
+
+@media (min-width: 1024px) {
+  .h-calc {
+    height: calc(100vh - 4rem);
+  }
+}

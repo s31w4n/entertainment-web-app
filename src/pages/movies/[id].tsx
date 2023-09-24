@@ -30,13 +30,13 @@ const MoviesDetails: React.FC<T> = ({ data }) => {
     <>
       <section className="p-5 md:pb-8 lg:mt-16">
         <BackButton />
-        <div className="flex gap-5 max-[880px]:flex-col sm:gap-10">
+        <div className="flex gap-5 max-[870px]:flex-col sm:gap-10">
           <DetailsImage
             title={title}
             poster_path={poster_path}
             isBookmarked={isBookmarked}
           />
-          <div className="min-[880px]:w-[calc(100%-440px)]">
+          <div className="min-[870px]:w-[calc(100%-440px)]">
             <DetailsTitle title={title} />
             <DetailsRating vote_average={vote_average} />
             <DetailsInfo

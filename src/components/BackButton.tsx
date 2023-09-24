@@ -13,10 +13,9 @@ const BackButton: React.FC = () => {
     <div className="pb-6 md:pb-8">
       <button
         onClick={handleGoBack}
-        className="group flex items-center justify-center gap-2 rounded-lg bg-app-red px-4 py-1 text-[14px] md:text-[1rem]"
+        className="group rounded-lg bg-app-red px-4 py-1"
       >
         <LeftArrow className="transition-transform group-hover:translate-x-[-5px]" />
-        Back
       </button>
     </div>
   );

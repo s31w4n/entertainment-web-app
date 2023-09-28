@@ -60,3 +60,23 @@ export async function getMediaDetails(id: number) {
 
   return details[0];
 }
+
+// Get Search Result
+export function getSearchResult(searchQuery: string, data: Media[]) {
+  const searchResult = data.filter((item) =>
+    item.title.toLowerCase().includes(searchQuery.trim().toLowerCase()),
+  );
+
+  return searchResult;
+}
+
+// Getting title when user search for something
+export function getTitle(searchQuery: string, searchResult: Media[]) {
+  let title: string;
+  if (searchResult.length > 0) {
+    title = `Found ${searchResult.length} results for '${searchQuery}'`;
+  } else {
+    title = `Found no result for '${searchQuery}'`;
+  }
+  return title;
+}

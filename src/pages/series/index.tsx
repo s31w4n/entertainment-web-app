@@ -1,13 +1,31 @@
 import React from "react";
-import { SearchBar, CollectionNormal } from "@/components";
-import { getSeries } from "@/utils";
 import { SeriesPageProps as T } from "@/types";
+import { SearchBar, CollectionNormal, Loading } from "@/components";
+import { getSeries, getSearchResult, getTitle } from "@/utils";
+import { useSearch } from "@/hooks";
 
 const Series: React.FC<T> = ({ series }) => {
+  const { searchQuery, setSearchQuery, isLoading, debouncedSearchQuery } =
+    useSearch();
+
+  const searchResult = getSearchResult(searchQuery, series);
+  const title = getTitle(searchQuery, searchResult);
   return (
     <>
-      <SearchBar placeholder="Search for TV series" />
-      <CollectionNormal data={series} title="TV Series" />
+      <SearchBar
+        placeholder="Search for TV series"
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
+      {debouncedSearchQuery ? (
+        isLoading ? (
+          <Loading />
+        ) : (
+          <CollectionNormal data={searchResult} title={title} />
+        )
+      ) : (
+        <CollectionNormal data={series} title="TV Series" />
+      )}
     </>
   );
 };

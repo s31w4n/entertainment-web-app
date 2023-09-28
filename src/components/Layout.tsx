@@ -18,12 +18,9 @@ const Layout: React.FC<Props> = ({ children }) => {
       <header>
         <Navigation />
       </header>
-      <section>
-        <main className="mx-4 mt-6 sm:mt-8 md:mx-6 lg:ml-[164px] lg:mr-9">
-          {children}
-        </main>
-        {/* <Footer /> */}
-      </section>
+      <main className="mx-4 mt-6 sm:mt-8 md:mx-6 lg:ml-[164px] lg:mr-9">
+        {children}
+      </main>
     </>
   );
 };

@@ -58,6 +58,8 @@ export async function getBookmarkData() {
       } else {
         console.error("Failed to update data.");
       }
+      // Return the updatedData items
+      return updatedData;
     }
   } catch (error) {
     console.log(error);

@@ -78,14 +78,16 @@ const Navigation: React.FC = () => {
       </ul>
       <div className="hidden h-40 lg:block"></div>
       <div className="rounded-full bg-app-white">
-        <Image
-          src={avatar}
-          alt="user avatar"
-          width={24}
-          height={24}
-          className="cursor-pointer p-px sm:h-8 sm:w-8 lg:h-10 lg:w-10"
-          unoptimized={true}
-        />
+        <Link href="/auth">
+          <Image
+            src={avatar}
+            alt="user avatar"
+            width={24}
+            height={24}
+            className="cursor-pointer p-px sm:h-8 sm:w-8 lg:h-10 lg:w-10"
+            unoptimized={true}
+          />
+        </Link>
       </div>
     </nav>
   );

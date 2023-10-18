@@ -18,7 +18,7 @@ const CollectionNormal: React.FC<T> = ({ data, title }) => {
                 backdrop_path={item.backdrop_path}
                 year={item.year}
                 rating={item.rating}
-                isBookmarked={item.isBookmarked}
+                bookmarked={item.isBookmarked}
               />
             ))}
           </section>

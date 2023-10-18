@@ -60,7 +60,7 @@ export interface CardProps {
   year: string;
   rating: string;
   backdrop_path: string;
-  isBookmarked: boolean;
+  bookmarked: boolean;
   id: number;
 }
 
@@ -93,6 +93,8 @@ export interface CardHoverProps {
 export interface BookmarkButtonProps {
   isTrending?: boolean;
   isBookmarked: boolean;
+  isBookmarking: boolean;
+  onClick: () => void;
 }
 
 // Search Button Props
@@ -134,4 +136,50 @@ export interface DetailsSynopsisProps {
 // Details Genres Props
 export interface DetailsGenresProps {
   genres: string[];
+}
+
+// Loading Props
+export interface LoadingProps {
+  width?: string;
+  height?: string;
+}
+
+// Auth Form Props
+export interface AuthFormProps {
+  isLogin: boolean;
+  loginHandler: () => void;
+}
+
+// Auth Input Props
+export interface AuthInputProps {
+  id: string;
+  name: string;
+  type: string;
+  value: string;
+  content: string;
+  placeholder: string;
+  onChange: (value: string) => void;
+  error: string;
+}
+
+// Auth Button Props
+export interface AuthButtonProps {
+  isLoading: boolean;
+  text: string;
+  onClick?: () => void;
+}
+
+// Notification Props
+export interface NotificationProps {
+  active?: boolean;
+  field?: string;
+  message: string;
+  status: string;
+}
+
+// useBookmark Props
+export interface useBookmarkProps {
+  title: string;
+  bookmarked: boolean;
+  handleNotification: (result: NotificationProps) => void;
 }

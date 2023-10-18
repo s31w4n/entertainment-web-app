@@ -1,6 +1,8 @@
 import React from "react";
 import { CardProps as T } from "@/types";
-import { CardImage, CardInfo, BookmarkButton } from ".";
+import { CardImage, CardInfo, BookmarkButton, Loading } from ".";
+import Notification from "./Notification";
+import { useBookmark, useNotification } from "@/hooks";
 
 const CardNormal: React.FC<T> = ({
   category,
@@ -8,9 +10,16 @@ const CardNormal: React.FC<T> = ({
   backdrop_path,
   year,
   rating,
-  isBookmarked,
+  bookmarked,
   id,
 }) => {
+  const { notification, handleNotification } = useNotification();
+  const { isBookmarked, isBookmarking, handleBookmark } = useBookmark({
+    title,
+    bookmarked,
+    handleNotification,
+  });
+
   return (
     <div className="relative">
       <CardImage
@@ -20,7 +29,17 @@ const CardNormal: React.FC<T> = ({
         category={category}
       />
       <CardInfo title={title} category={category} year={year} rating={rating} />
-      <BookmarkButton isBookmarked={isBookmarked} />
+      <BookmarkButton
+        isBookmarked={isBookmarked}
+        isBookmarking={isBookmarking}
+        onClick={handleBookmark}
+      />
+      {notification.active && (
+        <Notification
+          message={notification.message}
+          status={notification.status}
+        />
+      )}
     </div>
   );
 };

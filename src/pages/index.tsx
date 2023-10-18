@@ -1,5 +1,7 @@
 import React from "react";
 import { HomePageProps as T } from "@/types";
+import { getSession } from "next-auth/react";
+import { GetServerSidePropsContext } from "next";
 import {
   getTrending,
   getRecommended,
@@ -47,7 +49,9 @@ const Home: React.FC<T> = ({ trending, recommended }) => {
 
 export default Home;
 
-export async function getStaticProps() {
+export async function getStaticProps(context: GetServerSidePropsContext) {
+  // Get Session
+  const session = await getSession({ req: context.req });
   // Get Trending Media
   const trending = await getTrending();
   // Get Recommended Media
@@ -55,6 +59,7 @@ export async function getStaticProps() {
 
   return {
     props: {
+      session,
       trending,
       recommended,
     },

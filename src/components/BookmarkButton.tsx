@@ -1,8 +1,14 @@
 import React from "react";
 import { BookmarkButtonProps as T } from "@/types";
 import { BookmarkEmpty, BookmarkFull } from "@/assets/icons";
+import Loading from "./Loading";
 
-const BookmarkButton: React.FC<T> = ({ isTrending, isBookmarked }) => {
+const BookmarkButton: React.FC<T> = ({
+  isTrending,
+  isBookmarked,
+  isBookmarking,
+  onClick,
+}) => {
   return (
     <button
       className={
@@ -12,8 +18,19 @@ const BookmarkButton: React.FC<T> = ({ isTrending, isBookmarked }) => {
       }
       type="button"
       aria-label="Bookmark"
+      onClick={onClick}
     >
-      {isBookmarked ? <BookmarkFull /> : <BookmarkEmpty />}
+      {isBookmarked ? (
+        isBookmarking ? (
+          <Loading width="w-4" height="h-4" />
+        ) : (
+          <BookmarkFull />
+        )
+      ) : isBookmarking ? (
+        <Loading width="w-4" height="h-4" />
+      ) : (
+        <BookmarkEmpty />
+      )}
     </button>
   );
 };

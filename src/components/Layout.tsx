@@ -1,12 +1,15 @@
 import React, { ReactNode } from "react";
 import Head from "next/head";
-import { Navigation, Footer } from ".";
+import { Navigation } from ".";
+import { useRouter } from "next/router";
 
 interface Props {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 const Layout: React.FC<Props> = ({ children }) => {
+  const router = useRouter();
+
   return (
     <>
       <Head>
@@ -15,10 +18,18 @@ const Layout: React.FC<Props> = ({ children }) => {
         <meta name="description" content="Frontend Mentor Challenge Project" />
         <link rel="icon" href="/logo.svg" type="image/x-icon" />
       </Head>
-      <header>
-        <Navigation />
-      </header>
-      <main className="mx-4 mt-6 sm:mt-8 md:mx-6 lg:ml-[164px] lg:mr-9">
+      {router.pathname.startsWith("/auth") ? null : (
+        <header>
+          <Navigation />
+        </header>
+      )}
+      <main
+        className={`${
+          router.pathname.startsWith("/auth")
+            ? null
+            : "mx-4 mt-6 sm:mt-8 md:mx-6 lg:ml-[164px] lg:mr-9"
+        }`}
+      >
         {children}
       </main>
     </>

@@ -1,9 +1,12 @@
 import React from "react";
+import { LoadingProps as T } from "@/types";
 
-const Loading: React.FC = () => {
+const Loading: React.FC<T> = ({ width = "w-12", height = "h-12" }) => {
   return (
-    <div className="fixed right-0 top-0 z-10 flex h-screen w-screen items-center justify-center">
-      <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-t-2 border-app-red"></div>
+    <div className="absolute right-[50%] top-[50%] z-10 flex translate-x-[50%] translate-y-[-50%] items-center justify-center">
+      <div
+        className={`${width} ${height} animate-spin rounded-full border-b-2 border-t-2 border-app-red`}
+      ></div>
     </div>
   );
 };

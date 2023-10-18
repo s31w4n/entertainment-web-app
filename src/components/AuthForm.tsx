@@ -64,10 +64,10 @@ const AuthForm: React.FC<T> = ({ isLogin, loginHandler }) => {
     }
 
     if (error === "Can't be empty") {
-      setFormData((prevState) => ({ ...prevState, emailError: error }));
+      setFormData((prevState) => ({ ...prevState, passwordError: error }));
 
       setTimeout(() => {
-        setFormData((prevState) => ({ ...prevState, emailError: "" }));
+        setFormData((prevState) => ({ ...prevState, passwordError: "" }));
       }, 3000);
     }
 

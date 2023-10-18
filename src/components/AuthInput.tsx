@@ -25,7 +25,7 @@ const AuthInput: React.FC<T> = ({
     }
   }
 
-  const textClass = "absolute top-[0.3rem] right-[1.6rem] ";
+  const textClass = "absolute";
   const errorClass = error ? "border-app-red" : "";
 
   return (
@@ -44,7 +44,7 @@ const AuthInput: React.FC<T> = ({
         autoComplete="off"
         className={`h-[37px] w-full cursor-pointer border-b border-app-greyish-blue bg-app-semi-dark-blue p-4 text-app-body-md font-light caret-app-red placeholder:text-app-white/50 focus:border-app-white focus:outline-none ${errorClass}`}
       />
-      {err ? <p className={`${textClass} text-app-red`}>{err}</p> : null}
+      {err ? <p className={`${textClass} text-app-red text-app-body-md`}>{err}</p> : null}
     </div>
   );
 };

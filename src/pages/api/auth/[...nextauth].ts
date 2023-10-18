@@ -39,7 +39,7 @@ export const authOptions: NextAuthOptions = {
           throw new Error("User not found");
         }
 
-        if (user.password.trim().length === 0) {
+        if (credentials.password.trim().length === 0) {
           client.close();
           throw new Error("Can't be empty");
         }

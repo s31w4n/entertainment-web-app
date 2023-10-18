@@ -199,14 +199,6 @@ const AuthForm: React.FC<T> = ({ isLogin, loginHandler }) => {
         error={formData.passwordError}
         onChange={handlePassword}
       />
-      {isLogin && (
-        <Link
-          href="/auth/forget-password"
-          className="text-right text-app-body-md hover:underline"
-        >
-          Forget password?
-        </Link>
-      )}
       {!isLogin && (
         <AuthInput
           id="Repeat password"

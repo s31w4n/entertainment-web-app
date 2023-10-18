@@ -5,7 +5,7 @@ export const TMDB_API_KEY = process.env.TMDB_API_KEY;
 export const FIREBASE_ENDPOINT: string = process.env.FIREBASE_ENDPOINT!;
 
 // Get All the Data
-async function getAllData() {
+export async function getAllData() {
   const url = FIREBASE_ENDPOINT;
   const response = await fetch(url);
   const data: Media[] = await response.json();

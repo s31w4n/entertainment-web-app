@@ -1,3 +1,5 @@
+import { getAllData, FIREBASE_ENDPOINT } from ".";
+
 // Handle Bookmarks
 export async function handleBookmarks(
   method: string = "GET",
@@ -26,4 +28,38 @@ export async function handleBookmarks(
     };
   }
   return data;
+}
+
+export async function getBookmarkData() {
+  const data = await getAllData();
+  const userBookmarks = await handleBookmarks();
+
+  try {
+    if (userBookmarks.length !== 0) {
+      const updatedData = data.map((item) => {
+        if (userBookmarks.includes(item.id)) {
+          // If the item's ID is in the user's bookmarks, mark it as bookmarked.
+          item.isBookmarked = true;
+        }
+        return item;
+      });
+
+      // Make an HTTP request to update the data in Firebase
+      const response = await fetch(FIREBASE_ENDPOINT, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedData),
+      });
+
+      if (response.ok) {
+        console.log("Data updated successfully.");
+      } else {
+        console.error("Failed to update data.");
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }

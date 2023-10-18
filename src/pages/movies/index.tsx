@@ -41,5 +41,6 @@ export async function getStaticProps() {
     props: {
       movies,
     },
+    revalidate: 60,
   };
 }

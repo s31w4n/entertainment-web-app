@@ -63,5 +63,6 @@ export async function getStaticProps(context: GetServerSidePropsContext) {
       trending,
       recommended,
     },
+    revalidate: 60, // Revalidate (rebuild) the page every 60 seconds (adjust as needed)
   };
 }

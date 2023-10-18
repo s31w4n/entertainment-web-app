@@ -62,5 +62,6 @@ export async function getStaticProps() {
     props: {
       bookmarks,
     },
+    revalidate: 60,
   };
 }

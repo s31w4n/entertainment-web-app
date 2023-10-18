@@ -1,9 +1,16 @@
 import React from "react";
 import Image from "next/image";
-import { BookmarkButton } from "@/components";
+import { BookmarkButton, Notification } from "@/components";
 import { DetailsImageProps as T } from "@/types";
+import { useBookmark, useNotification } from "@/hooks";
 
-const DetailsImage: React.FC<T> = ({ poster_path, title, isBookmarked }) => {
+const DetailsImage: React.FC<T> = ({ poster_path, title, bookmarked }) => {
+  const { notification, handleNotification } = useNotification();
+  const { isBookmarking, isBookmarked, handleBookmark } = useBookmark({
+    title,
+    bookmarked,
+    handleNotification,
+  });
   return (
     <div className="relative h-[525px] w-[350px]">
       <Image
@@ -14,7 +21,17 @@ const DetailsImage: React.FC<T> = ({ poster_path, title, isBookmarked }) => {
         className="rounded-lg object-fill "
         priority
       />
-      <BookmarkButton isBookmarked={isBookmarked} />
+      <BookmarkButton
+        isBookmarked={isBookmarked}
+        isBookmarking={isBookmarking}
+        onClick={handleBookmark}
+      />
+      {notification.active && (
+        <Notification
+          message={notification.message}
+          status={notification.status}
+        />
+      )}
     </div>
   );
 };

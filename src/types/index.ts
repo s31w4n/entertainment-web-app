@@ -107,7 +107,7 @@ export interface SearchButtonProps {
 export interface DetailsImageProps {
   poster_path: string;
   title: string;
-  isBookmarked: boolean;
+  bookmarked: boolean;
 }
 
 // Details Title Props

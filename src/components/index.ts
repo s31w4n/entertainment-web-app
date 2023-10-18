@@ -20,6 +20,7 @@ import DetailsRating from "./DetailsRating";
 import DetailsInfo from "./DetailsInfo";
 import DetailsSynopsis from "./DetailsSynopsis";
 import DetailsGenres from "./DetailsGenres";
+import Notification from "./Notification";
 
 export {
   Layout,
@@ -44,4 +45,5 @@ export {
   DetailsInfo,
   DetailsSynopsis,
   DetailsGenres,
+  Notification,
 };

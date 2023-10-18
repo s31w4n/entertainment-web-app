@@ -34,7 +34,7 @@ const SeriesDetails: React.FC<T> = ({ data }) => {
           <DetailsImage
             title={title}
             poster_path={poster_path}
-            isBookmarked={isBookmarked}
+            bookmarked={isBookmarked}
           />
           <div className="min-[870px]:w-[calc(100%-440px)]">
             <DetailsTitle title={title} />

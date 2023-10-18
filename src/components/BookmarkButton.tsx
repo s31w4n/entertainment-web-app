@@ -20,17 +20,7 @@ const BookmarkButton: React.FC<T> = ({
       aria-label="Bookmark"
       onClick={onClick}
     >
-      {isBookmarked ? (
-        isBookmarking ? (
-          <Loading width="w-4" height="h-4" />
-        ) : (
-          <BookmarkFull />
-        )
-      ) : isBookmarking ? (
-        <Loading width="w-4" height="h-4" />
-      ) : (
-        <BookmarkEmpty />
-      )}
+      {isBookmarked ? <BookmarkFull /> : <BookmarkEmpty />}
     </button>
   );
 };

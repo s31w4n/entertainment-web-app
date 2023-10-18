@@ -1,6 +1,6 @@
 import React from "react";
 import { CardProps as T } from "@/types";
-import { CardImage, CardInfo, BookmarkButton, Loading } from ".";
+import { CardImage, CardInfo, BookmarkButton } from ".";
 import Notification from "./Notification";
 import { useBookmark, useNotification } from "@/hooks";
 

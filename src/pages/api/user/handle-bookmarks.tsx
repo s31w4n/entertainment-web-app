@@ -44,7 +44,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     client.close();
     res
       .status(200)
-      .json({ message: "Added to getBookmarks", status: "success" });
+      .json({ message: "Added to bookmarks", status: "success" });
   }
 
   if (req.method === "DELETE") {

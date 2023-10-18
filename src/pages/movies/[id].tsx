@@ -24,6 +24,7 @@ const MoviesDetails: React.FC<T> = ({ data }) => {
     vote_average,
     year,
     isBookmarked,
+    id,
   } = data;
 
   return (
@@ -32,6 +33,7 @@ const MoviesDetails: React.FC<T> = ({ data }) => {
         <BackButton />
         <div className="flex gap-5 max-[870px]:flex-col sm:gap-10">
           <DetailsImage
+            id={id}
             title={title}
             poster_path={poster_path}
             bookmarked={isBookmarked}

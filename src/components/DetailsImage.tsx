@@ -4,13 +4,14 @@ import { BookmarkButton, Notification } from "@/components";
 import { DetailsImageProps as T } from "@/types";
 import { useBookmark, useNotification } from "@/hooks";
 
-const DetailsImage: React.FC<T> = ({ poster_path, title, bookmarked }) => {
+const DetailsImage: React.FC<T> = ({ id, poster_path, title, bookmarked }) => {
   const { notification, handleNotification } = useNotification();
   const { isBookmarking, isBookmarked, handleBookmark } = useBookmark({
-    title,
+    id,
     bookmarked,
     handleNotification,
   });
+
   return (
     <div className="relative h-[525px] w-[350px]">
       <Image

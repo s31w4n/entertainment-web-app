@@ -108,6 +108,7 @@ export interface DetailsImageProps {
   poster_path: string;
   title: string;
   bookmarked: boolean;
+  id: number;
 }
 
 // Details Title Props
@@ -179,7 +180,7 @@ export interface NotificationProps {
 
 // useBookmark Props
 export interface useBookmarkProps {
-  title: string;
+  id: number;
   bookmarked: boolean;
   handleNotification: (result: NotificationProps) => void;
 }

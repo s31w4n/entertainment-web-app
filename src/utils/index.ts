@@ -1,4 +1,5 @@
 import { Media } from "@/types";
+import { getBookmarkData } from "./handleBookmarks";
 
 export const TMDB_ENDPOINT = process.env.TMDB_ENDPOINT;
 export const TMDB_API_KEY = process.env.TMDB_API_KEY;
@@ -47,6 +48,7 @@ export async function getSeries() {
 
 // Get Bookmarks
 export async function getBookmarks() {
+  await getBookmarkData();
   const data = await getAllData();
   const bookmarks = data.filter((item) => item.isBookmarked === true);
 

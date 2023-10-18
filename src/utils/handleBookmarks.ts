@@ -16,7 +16,7 @@ export async function handleBookmarks(
     options.body = JSON.stringify({ id });
   }
 
-  const response = await fetch("https://entertainment-web-app-woad.vercel.app//api/user/handle-bookmarks", options);
+  const response = await fetch("/api/user/handle-bookmarks", options);
   const data = await response.json();
 
   if (!response.ok) {

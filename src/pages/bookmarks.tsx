@@ -1,7 +1,6 @@
 import React from "react";
 import { SearchBar, CollectionNormal, Loading } from "@/components";
-import { getSearchResult, getTitle } from "@/utils";
-import { getBookmarkData } from "@/utils/handleBookmarks";
+import { getBookmarks, getSearchResult, getTitle } from "@/utils";
 import { BookmarkPageProps as T } from "@/types";
 import { BookmarkIcon } from "@/assets/bookmark";
 import { useSearch } from "@/hooks";
@@ -57,7 +56,7 @@ export default Bookmark;
 
 export async function getStaticProps() {
   // Get Bookmarks
-  const bookmarks = await getBookmarkData();
+  const bookmarks = await getBookmarks();
 
   return {
     props: {

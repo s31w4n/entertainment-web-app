@@ -30,7 +30,7 @@ module.exports = {
     },
     gridTemplateColumns: {
       main: "auto, 1fr",
-      "cards-mobile": "repeat(auto-fill, minmax(210px, 1fr))",
+      "cards-mobile": "repeat(auto-fill, minmax(164px, 1fr))",
       "cards-tablet": "repeat(auto-fill, minmax(220px, 1fr))",
       "cards-desktop": "repeat(auto-fill, minmax(280px, 1fr))",
     },

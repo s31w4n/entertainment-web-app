@@ -22,7 +22,7 @@ const CardInfo: React.FC<T> = ({
             : "sm:text-app-body-sm flex items-center gap-2 text-[11px] font-light text-app-grey"
         }
       >
-        <span>{year}</span>
+        <span>{year.slice(0,4)}</span>
         <span className="h-1 w-1 rounded-full bg-app-grey"></span>
         <span>
           {category.toLowerCase() === "movie" ? <MoviesIcon /> : <SeriesIcon />}

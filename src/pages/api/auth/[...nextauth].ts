@@ -39,11 +39,16 @@ export const authOptions: NextAuthOptions = {
           throw new Error("User not found");
         }
 
+        if (credentials.password.trim().length > 1) {
+          client.close();
+          throw new Error("Can't be empty");
+        }
+
         const isValid = await verifyPassword(
           credentials.password,
           user.password,
         );
-        
+
         if (!isValid) {
           client.close();
           throw new Error("Wrong password");

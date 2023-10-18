@@ -34,11 +34,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   if (req.method === "POST") {
-    const title = req.body.title;
+    const id = req.body.id;
 
     await userCollection.updateOne(
       { email: userEmail },
-      { $addToSet: { bookmarks: title } },
+      { $addToSet: { bookmarks: id } },
     );
 
     client.close();
@@ -48,11 +48,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   if (req.method === "DELETE") {
-    const title = req.body.title;
+    const id = req.body.id;
 
     await userCollection.updateOne(
       { email: userEmail },
-      { $pull: { bookmarks: title } },
+      { $pull: { bookmarks: id } },
     );
 
     client.close();

@@ -1,7 +1,7 @@
 // Handle Bookmarks
 export async function handleBookmarks(
   method: string = "GET",
-  title: string = "",
+  id: number = NaN,
 ) {
   const options: RequestInit = {
     method: method,
@@ -10,8 +10,8 @@ export async function handleBookmarks(
     },
   };
 
-  if (title) {
-    options.body = JSON.stringify({ title });
+  if (id) {
+    options.body = JSON.stringify({ id });
   }
 
   const response = await fetch("/api/user/handle-bookmarks", options);

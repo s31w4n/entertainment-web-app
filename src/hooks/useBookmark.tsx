@@ -2,7 +2,7 @@ import { useState } from "react";
 import { handleBookmarks } from "@/utils/handleBookmarks";
 import { useBookmarkProps as T } from "@/types";
 
-function useBookmark({ title, bookmarked, handleNotification }: T) {
+function useBookmark({ id, bookmarked, handleNotification }: T) {
   const [isBookmarked, setIsBookmarked] = useState(bookmarked);
   const [isBookmarking, setIsBookmarking] = useState(false);
 
@@ -12,11 +12,11 @@ function useBookmark({ title, bookmarked, handleNotification }: T) {
 
     if (!userBookmarks) return;
 
-    if (userBookmarks.includes(title)) {
-      const result = await handleBookmarks("DELETE", title);
+    if (userBookmarks.includes(id)) {
+      const result = await handleBookmarks("DELETE", id);
       handleNotification(result);
     } else {
-      const result = await handleBookmarks("POST", title);
+      const result = await handleBookmarks("POST", id);
       handleNotification(result);
     }
     setIsBookmarked((prev) => !prev);

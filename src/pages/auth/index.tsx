@@ -43,8 +43,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   if (session) {
     return {
       redirect: {
-        destination: "/",
         permanent: false,
+        destination: "/",
       },
     };
   }

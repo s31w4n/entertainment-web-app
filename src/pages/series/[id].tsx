@@ -28,7 +28,7 @@ const SeriesDetails: React.FC<T> = ({ data }) => {
 
   return (
     <>
-      <section className="md:pb-8 lg:mt-16">
+      <section className="p-2 md:pb-8 lg:mt-16">
         <BackButton />
         <div className="flex gap-5 max-[870px]:flex-col sm:gap-10">
           <DetailsImage

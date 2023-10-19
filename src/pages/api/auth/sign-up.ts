@@ -1,12 +1,13 @@
 import { connectToDatabase } from "@/lib/db";
 import { hashPassword } from "@/lib/auth";
 import { NextApiRequest, NextApiResponse } from "next/types";
+import { getAllData } from "@/utils";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
     return;
   }
-  
+
   const data = req.body;
   const { email, password } = data;
 
@@ -40,9 +41,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   const hashedPassword = await hashPassword(password);
 
+  const cloneOriginalData = await getAllData();
+
   const result = await db.collection("users").insertOne({
     email: email,
     password: hashedPassword,
+    data: cloneOriginalData,
     bookmarks: [],
   });
 

@@ -48,7 +48,6 @@ export async function getSeries() {
 
 // Get Bookmarks
 export async function getBookmarks() {
-  await getBookmarkData();
   const data = await getAllData();
   const bookmarks = data.filter((item) => item.isBookmarked === true);
 

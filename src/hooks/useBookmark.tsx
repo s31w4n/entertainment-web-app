@@ -9,7 +9,6 @@ function useBookmark({ id, bookmarked, handleNotification }: T) {
   const handleBookmark = async () => {
     setIsBookmarking(true);
     const userBookmarks = await handleBookmarks();
-    console.log(userBookmarks);
 
     if (!userBookmarks) return;
 

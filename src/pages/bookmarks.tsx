@@ -4,10 +4,8 @@ import { getBookmarks, getSearchResult, getTitle } from "@/utils";
 import { BookmarkPageProps as T } from "@/types";
 import { BookmarkIcon } from "@/assets/bookmark";
 import { useSearch } from "@/hooks";
-import { GetServerSidePropsContext } from "next";
-import { getSession } from "next-auth/react";
 
-const Bookmark: React.FC<T> = ({ bookmarks, session }) => {
+const Bookmark: React.FC<T> = ({ bookmarks }) => {
   const bookmarkMovies = bookmarks.filter((item) => item.category === "Movie");
   const bookmarkSeries = bookmarks.filter(
     (item) => item.category === "TV Series",
@@ -32,7 +30,7 @@ const Bookmark: React.FC<T> = ({ bookmarks, session }) => {
         ) : (
           <CollectionNormal data={searchResult} title={title} />
         )
-      ) : !session || bookmarks.length === 0 ? (
+      ) : bookmarks.length === 0 ? (
         <div className="flex h-[calc(100vh-133px)] flex-col items-center justify-center gap-3 text-app-greyish-blue/50 sm:h-[calc(100vh-188px)] sm:gap-4 lg:h-[calc(100vh-133px)]">
           <BookmarkIcon className="sm:h-48 sm:w-48 " />
           <p className="font-bold sm:text-app-heading-md">Bookmarks is Empty</p>
@@ -56,16 +54,13 @@ const Bookmark: React.FC<T> = ({ bookmarks, session }) => {
 
 export default Bookmark;
 
-export async function getStaticProps(context: GetServerSidePropsContext) {
-  // Get Session
-  const session = await getSession({ req: context.req });
+export async function getStaticProps() {
   // Get Bookmarks
   const bookmarks = await getBookmarks();
 
   return {
     props: {
       bookmarks,
-      session,
     },
     revalidate: 60,
   };

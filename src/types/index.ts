@@ -1,5 +1,3 @@
-import { Session } from "next-auth";
-
 // Media Type
 export interface Media {
   id: number;
@@ -38,7 +36,6 @@ export interface SeriesPageProps {
 
 export interface BookmarkPageProps {
   bookmarks: Media[];
-  session: Session;
 }
 
 export interface DetailsPageProps {

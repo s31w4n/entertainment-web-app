@@ -10,16 +10,19 @@ import { handleBookmarks } from "@/utils/handleBookmarks";
 
 const Bookmark: React.FC<T> = ({ session, allData }) => {
   const [bookmarks, setBookmarks] = useState<Media[]>([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       if (session) {
+        setLoading(true);
         const userBookmarks = await handleBookmarks();
         const data = allData;
         const bookmarksData = data.filter((item) =>
           userBookmarks.includes(item.id),
         );
         setBookmarks(bookmarksData);
+        setLoading(false);
       } else {
         setBookmarks([]);
       }
@@ -39,7 +42,18 @@ const Bookmark: React.FC<T> = ({ session, allData }) => {
   const searchResult = getSearchResult(searchQuery, bookmarks);
   const title = getTitle(searchQuery, searchResult);
 
-  console.log(bookmarks);
+  if (loading) {
+    return (
+      <>
+        <SearchBar
+          placeholder="Search for bookmarked shows"
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
+        <Loading />
+      </>
+    );
+  }
 
   return (
     <>

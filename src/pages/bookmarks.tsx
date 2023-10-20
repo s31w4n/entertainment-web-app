@@ -4,7 +4,6 @@ import { getBookmarks, getSearchResult, getTitle } from "@/utils";
 import { BookmarkPageProps as T } from "@/types";
 import { BookmarkIcon } from "@/assets/bookmark";
 import { useSearch } from "@/hooks";
-import { handleBookmarks } from "@/utils/handleBookmarks";
 
 const Bookmark: React.FC<T> = ({ bookmarks }) => {
   const bookmarkMovies = bookmarks.filter((item) => item.category === "Movie");
@@ -17,16 +16,6 @@ const Bookmark: React.FC<T> = ({ bookmarks }) => {
 
   const searchResult = getSearchResult(searchQuery, bookmarks);
   const title = getTitle(searchQuery, searchResult);
-
-  async function getID() {
-    const IDs = await handleBookmarks();
-
-    return IDs;
-  }
-
-  const userBookmarks = getID();
-
-  console.log(userBookmarks);
 
   return (
     <>

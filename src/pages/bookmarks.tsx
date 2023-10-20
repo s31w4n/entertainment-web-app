@@ -62,8 +62,8 @@ export default Bookmark;
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   // Get Session
   const session = await getSession({ req: context.req });
-  const allData = await getAllData();
   const userBookmarks = await handleBookmarks();
+  const allData = await getAllData();
   // Get Bookmarks
   let bookmarks: Media[];
   if (!session) {

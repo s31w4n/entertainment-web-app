@@ -17,6 +17,11 @@ export async function handleBookmarks(
   }
 
   const response = await fetch("/api/user/handle-bookmarks", options);
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(`API request failed: ${errorData.message}`);
+  }
   const data = await response.json();
 
   if (!response.ok) {

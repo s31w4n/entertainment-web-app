@@ -1,9 +1,12 @@
 import React from "react";
 import { SearchBar, CollectionNormal, Loading } from "@/components";
-import { getBookmarks, getSearchResult, getTitle } from "@/utils";
-import { BookmarkPageProps as T } from "@/types";
+import { getAllData, getBookmarks, getSearchResult, getTitle } from "@/utils";
+import { BookmarkPageProps as T, Media } from "@/types";
 import { BookmarkIcon } from "@/assets/bookmark";
 import { useSearch } from "@/hooks";
+import { getSession } from "next-auth/react";
+import { GetServerSidePropsContext } from "next";
+import { handleBookmarks } from "@/utils/handleBookmarks";
 
 const Bookmark: React.FC<T> = ({ bookmarks }) => {
   const bookmarkMovies = bookmarks.filter((item) => item.category === "Movie");
@@ -54,14 +57,22 @@ const Bookmark: React.FC<T> = ({ bookmarks }) => {
 
 export default Bookmark;
 
-export async function getStaticProps() {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  // Get Session
+  const session = await getSession({ req: context.req });
+  const allData = await getAllData();
+  const userBookmarks = await handleBookmarks();
   // Get Bookmarks
-  const bookmarks = await getBookmarks();
+  let bookmarks: Media[];
+  if (!session) {
+    bookmarks = [];
+  } else {
+    bookmarks = allData.filter((item) => userBookmarks.includes(item.id));
+  }
 
   return {
     props: {
       bookmarks,
     },
-    revalidate: 60,
   };
 }

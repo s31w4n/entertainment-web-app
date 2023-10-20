@@ -3,7 +3,7 @@ import { getAllData, FIREBASE_ENDPOINT } from ".";
 // Handle Bookmarks
 export async function handleBookmarks(
   method: string = "GET",
-  id: number = NaN,
+  id: number = 0,
 ) {
   const options: RequestInit = {
     method: method,

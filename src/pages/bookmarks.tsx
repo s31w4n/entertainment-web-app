@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { SearchBar, CollectionNormal, Loading } from "@/components";
 import { getAllData, getBookmarks, getSearchResult, getTitle } from "@/utils";
 import { BookmarkPageProps as T, Media } from "@/types";
@@ -8,7 +8,26 @@ import { getSession } from "next-auth/react";
 import { GetServerSidePropsContext } from "next";
 import { handleBookmarks } from "@/utils/handleBookmarks";
 
-const Bookmark: React.FC<T> = ({ bookmarks }) => {
+const Bookmark: React.FC<T> = ({ session, allData }) => {
+  const [bookmarks, setBookmarks] = useState<Media[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (session) {
+        const userBookmarks = await handleBookmarks();
+        const data = allData;
+        const bookmarksData = data.filter((item) =>
+          userBookmarks.includes(item.id),
+        );
+        setBookmarks(bookmarksData);
+      } else {
+        setBookmarks([]);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const bookmarkMovies = bookmarks.filter((item) => item.category === "Movie");
   const bookmarkSeries = bookmarks.filter(
     (item) => item.category === "TV Series",
@@ -62,19 +81,13 @@ export default Bookmark;
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   // Get Session
   const session = await getSession({ req: context.req });
-  const userBookmarks = await handleBookmarks();
+  // Get All Data
   const allData = await getAllData();
-  // Get Bookmarks
-  let bookmarks: Media[];
-  if (!session) {
-    bookmarks = [];
-  } else {
-    bookmarks = allData.filter((item) => userBookmarks.includes(item.id));
-  }
 
   return {
     props: {
-      bookmarks,
+      session,
+      allData,
     },
   };
 }

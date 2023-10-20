@@ -20,6 +20,8 @@ const Bookmark: React.FC<T> = ({ bookmarks }) => {
   const searchResult = getSearchResult(searchQuery, bookmarks);
   const title = getTitle(searchQuery, searchResult);
 
+  console.log(bookmarks);
+
   return (
     <>
       <SearchBar

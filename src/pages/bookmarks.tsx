@@ -8,11 +8,9 @@ import { getSession } from "next-auth/react";
 import { GetServerSidePropsContext } from "next";
 import { handleBookmarks } from "@/utils/handleBookmarks";
 
-const Bookmark: React.FC<T> = ({ session, allData, userBookmarks }) => {
+const Bookmark: React.FC<T> = ({ session, allData }) => {
   const [bookmarks, setBookmarks] = useState<Media[]>([]);
   const [loading, setLoading] = useState(false);
-
-  console.log(userBookmarks);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -99,17 +97,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession({ req: context.req });
   // Get All Data
   const allData = await getAllData();
-  let userBookmarks;
-  if (session) {
-    userBookmarks = await handleBookmarks();
-    return userBookmarks;
-  }
-  
+
   return {
     props: {
       session,
       allData,
-      userBookmarks,
     },
   };
 }

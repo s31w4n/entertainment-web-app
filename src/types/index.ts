@@ -39,7 +39,6 @@ export interface SeriesPageProps {
 export interface BookmarkPageProps {
   session: Session;
   allData: Media[];
-  userBookmarks: number[];
 }
 
 export interface DetailsPageProps {

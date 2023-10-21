@@ -14,7 +14,7 @@ const CardTrending: React.FC<T> = ({
   id,
 }) => {
   const { notification, handleNotification } = useNotification();
-  const { isBookmarked, isBookmarking, handleBookmark } = useBookmark({
+  const { isBookmarking, handleBookmark } = useBookmark({
     id,
     handleNotification,
   });
@@ -37,7 +37,7 @@ const CardTrending: React.FC<T> = ({
       />
       <BookmarkButton
         isTrending
-        isBookmarked={isBookmarked}
+        id={id}
         isBookmarking={isBookmarking}
         onClick={handleBookmark}
       />

@@ -95,7 +95,7 @@ export interface CardHoverProps {
 // Bookmark Button Props
 export interface BookmarkButtonProps {
   isTrending?: boolean;
-  isBookmarked: boolean;
+  id: number;
   isBookmarking: boolean;
   onClick: () => void;
 }

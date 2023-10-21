@@ -18,18 +18,8 @@ type BookmarkContextType = InitialStateType & {
   removeBookmark: (itemId: number) => void;
 };
 
-// check for existing an item in the local storage
-const getLocalStorage = () => {
-  let bookmarks = localStorage.getItem("bookmarks");
-  if (bookmarks) {
-    return JSON.parse(bookmarks);
-  } else {
-    return [];
-  }
-};
-
 const initialState: InitialStateType = {
-  bookmarks: getLocalStorage(),
+  bookmarks: [],
 };
 
 const BookmarkContext = createContext<BookmarkContextType | undefined>(
@@ -78,11 +68,6 @@ export function BookmarkProvider({ children }: BookmarkProviderProps) {
       dispatch({ type: "ADD_BOOKMARK", payload: itemId });
     }
   };
-
-  // add the cart to the local storage
-  useEffect(() => {
-    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-  }, [bookmarks]);
 
   return (
     <BookmarkContext.Provider

@@ -6,7 +6,7 @@ import { useBookmark, useNotification } from "@/hooks";
 
 const DetailsImage: React.FC<T> = ({ id, poster_path, title, bookmarked }) => {
   const { notification, handleNotification } = useNotification();
-  const { isBookmarking, isBookmarked, handleBookmark } = useBookmark({
+  const { isBookmarking, handleBookmark } = useBookmark({
     id,
     handleNotification,
   });
@@ -22,7 +22,7 @@ const DetailsImage: React.FC<T> = ({ id, poster_path, title, bookmarked }) => {
         priority
       />
       <BookmarkButton
-        isBookmarked={isBookmarked}
+        id={id}
         isBookmarking={isBookmarking}
         onClick={handleBookmark}
       />

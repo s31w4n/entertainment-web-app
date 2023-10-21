@@ -14,7 +14,7 @@ const CardNormal: React.FC<T> = ({
   id,
 }) => {
   const { notification, handleNotification } = useNotification();
-  const { isBookmarked, isBookmarking, handleBookmark } = useBookmark({
+  const { isBookmarking, handleBookmark } = useBookmark({
     id,
     handleNotification,
   });
@@ -31,7 +31,7 @@ const CardNormal: React.FC<T> = ({
       />
       <CardInfo title={title} category={category} year={year} rating={rating} />
       <BookmarkButton
-        isBookmarked={isBookmarked}
+        id={id}
         isBookmarking={isBookmarking}
         onClick={handleBookmark}
       />

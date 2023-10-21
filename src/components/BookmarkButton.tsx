@@ -1,14 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BookmarkButtonProps as T } from "@/types";
 import { BookmarkEmpty, BookmarkFull } from "@/assets/icons";
 import Loading from "./Loading";
+import { handleBookmarks } from "@/utils/handleBookmarks";
 
 const BookmarkButton: React.FC<T> = ({
   isTrending,
-  isBookmarked,
   isBookmarking,
+  id,
   onClick,
 }) => {
+  const [isBookmarked, setIsBookmarked] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      const usersBookmarked = await handleBookmarks();
+      if (usersBookmarked.includes(id)) {
+        setIsBookmarked(true);
+      } else {
+        setIsBookmarked(false);
+      }
+    }
+  }, [id]);
+
   return (
     <button
       className={

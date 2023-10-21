@@ -3,7 +3,6 @@ import { handleBookmarks } from "@/utils/handleBookmarks";
 import { useBookmarkProps as T } from "@/types";
 
 function useBookmark({ id, handleNotification }: T) {
-  const [isBookmarked, setIsBookmarked] = useState(false);
   const [isBookmarking, setIsBookmarking] = useState(false);
 
   const handleBookmark = async () => {
@@ -19,10 +18,9 @@ function useBookmark({ id, handleNotification }: T) {
       const result = await handleBookmarks("POST", id);
       handleNotification(result);
     }
-    setIsBookmarked((prev) => !prev);
     setIsBookmarking(false);
   };
-  return { isBookmarked, isBookmarking, handleBookmark };
+  return { isBookmarking, handleBookmark };
 }
 
 export default useBookmark;

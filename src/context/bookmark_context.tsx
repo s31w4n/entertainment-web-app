@@ -46,13 +46,14 @@ export function BookmarkProvider({ children }: BookmarkProviderProps) {
   useEffect(() => {
     const fetchData = async () => {
       const userBookmarks = await handleBookmarks();
-      console.log(bookmarks);
       const data = await getAllData();
       const bookmarksData = data.filter((item) =>
         userBookmarks.includes(item.id),
       );
       dispatch({ type: "SET_BOOKMARK", payload: bookmarksData });
+      console.log(bookmarks);
     };
+
     fetchData();
   }, []);
 

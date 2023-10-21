@@ -23,7 +23,7 @@ function useBookmark({ id, bookmarked, handleNotification }: T) {
       addBookmark(id);
       handleNotification(result);
     }
-    if (bookmarks.includes(id)) {
+    if (userBookmarks.includes(id)) {
       setIsBookmarked(true);
     } else {
       setIsBookmarked(false);

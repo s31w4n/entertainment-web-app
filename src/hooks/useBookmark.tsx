@@ -28,6 +28,7 @@ function useBookmark({ id, bookmarked, handleNotification }: T) {
     } else {
       setIsBookmarked(false);
     }
+    setIsBookmarking(false);
   };
   return { isBookmarked, isBookmarking, handleBookmark };
 }

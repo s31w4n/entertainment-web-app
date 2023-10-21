@@ -7,6 +7,7 @@ import { useSearch } from "@/hooks";
 import { getSession } from "next-auth/react";
 import { GetServerSidePropsContext } from "next";
 import { handleBookmarks } from "@/utils/handleBookmarks";
+import { fetchData } from "next-auth/client/_utils";
 
 const Bookmark: React.FC<T> = ({ session, allData }) => {
   const [bookmarks, setBookmarks] = useState<Media[]>([]);
@@ -29,7 +30,7 @@ const Bookmark: React.FC<T> = ({ session, allData }) => {
     };
 
     fetchData();
-  }, [setBookmarks]);
+  }, [fetchData]);
 
   const bookmarkMovies = bookmarks.filter((item) => item.category === "Movie");
   const bookmarkSeries = bookmarks.filter(

@@ -99,8 +99,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession({ req: context.req });
   // Get All Data
   const allData = await getAllData();
-  const userBookmarks = await handleBookmarks();
-
+  let userBookmarks;
+  if (session) {
+    userBookmarks = await handleBookmarks();
+    return userBookmarks;
+  }
+  
   return {
     props: {
       session,

@@ -46,7 +46,7 @@ export function BookmarkProvider({ children }: BookmarkProviderProps) {
   useEffect(() => {
     const fetchData = async () => {
       const userBookmarks = await handleBookmarks();
-      console.log(userBookmarks);
+      console.log(bookmarks);
       const data = await getAllData();
       const bookmarksData = data.filter((item) =>
         userBookmarks.includes(item.id),

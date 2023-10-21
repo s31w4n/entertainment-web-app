@@ -29,7 +29,7 @@ const Bookmark: React.FC<T> = ({ session, allData }) => {
     };
 
     fetchData();
-  }, []);
+  }, [setBookmarks]);
 
   const bookmarkMovies = bookmarks.filter((item) => item.category === "Movie");
   const bookmarkSeries = bookmarks.filter(

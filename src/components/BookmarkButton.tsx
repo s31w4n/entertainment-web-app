@@ -21,6 +21,7 @@ const BookmarkButton: React.FC<T> = ({
         setIsBookmarked(false);
       }
     }
+    fetchData();
   }, [id]);
 
   return (

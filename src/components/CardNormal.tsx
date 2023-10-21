@@ -16,7 +16,6 @@ const CardNormal: React.FC<T> = ({
   const { notification, handleNotification } = useNotification();
   const { isBookmarked, isBookmarking, handleBookmark } = useBookmark({
     id,
-    bookmarked,
     handleNotification,
   });
 

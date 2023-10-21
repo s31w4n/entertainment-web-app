@@ -184,6 +184,5 @@ export interface NotificationProps {
 // useBookmark Props
 export interface useBookmarkProps {
   id: number;
-  bookmarked: boolean;
   handleNotification: (result: NotificationProps) => void;
 }

@@ -8,7 +8,6 @@ const DetailsImage: React.FC<T> = ({ id, poster_path, title, bookmarked }) => {
   const { notification, handleNotification } = useNotification();
   const { isBookmarking, isBookmarked, handleBookmark } = useBookmark({
     id,
-    bookmarked,
     handleNotification,
   });
 

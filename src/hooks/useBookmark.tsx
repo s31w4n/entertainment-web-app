@@ -3,7 +3,7 @@ import { handleBookmarks } from "@/utils/handleBookmarks";
 import { useBookmarkProps as T } from "@/types";
 import { useBookmarkContext } from "@/context/bookmark_context";
 
-function useBookmark({ id, bookmarked, handleNotification }: T) {
+function useBookmark({ id, handleNotification }: T) {
   const { bookmarks, addBookmark, removeBookmark } = useBookmarkContext();
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isBookmarking, setIsBookmarking] = useState(false);
@@ -23,12 +23,11 @@ function useBookmark({ id, bookmarked, handleNotification }: T) {
       addBookmark(id);
       handleNotification(result);
     }
-    if (userBookmarks.includes(id)) {
-      setIsBookmarked(true);
+    if (bookmarks.includes(id)) {
+      setIsBookmarking(true);
     } else {
       setIsBookmarked(false);
     }
-    setIsBookmarking(false);
   };
   return { isBookmarked, isBookmarking, handleBookmark };
 }

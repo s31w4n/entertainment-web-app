@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { CardProps as T } from "@/types";
 import { CardImage, CardInfo, BookmarkButton } from ".";
 import Notification from "./Notification";
@@ -18,6 +18,8 @@ const CardNormal: React.FC<T> = ({
     id,
     handleNotification,
   });
+
+  useEffect(() => {}, []);
 
   return (
     <div className="relative">

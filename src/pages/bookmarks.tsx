@@ -17,6 +17,7 @@ const Bookmark: React.FC<T> = ({ session, allData }) => {
       if (session) {
         setLoading(true);
         const userBookmarks = await handleBookmarks();
+        console.log(userBookmarks);
         const data = allData;
         const bookmarksData = data.filter((item) =>
           userBookmarks.includes(item.id),

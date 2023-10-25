@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import { BookmarkButtonProps as T } from "@/types";
 import { BookmarkEmpty, BookmarkFull } from "@/assets/icons";
@@ -22,7 +23,7 @@ const BookmarkButton: React.FC<T> = ({
       }
     }
     fetchData();
-  }, [id]);
+  });
 
   return (
     <button

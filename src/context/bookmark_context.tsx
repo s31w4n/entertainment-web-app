@@ -41,7 +41,7 @@ export function useBookmarkContext() {
 }
 
 export function BookmarkProvider({ children }: BookmarkProviderProps) {
-  const [bookmarks, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,28 +51,26 @@ export function BookmarkProvider({ children }: BookmarkProviderProps) {
         userBookmarks.includes(item.id),
       );
       dispatch({ type: "SET_BOOKMARK", payload: bookmarksData });
-      console.log(bookmarks);
+      console.log(state.bookmarks);
     };
 
     fetchData();
-  }, [bookmarks]);
+  }, [state.bookmarks]);
 
   const removeBookmark = (itemId: number) => {
-    if (bookmarks.includes(itemId)) {
+    if (state.bookmarks.includes(itemId)) {
       dispatch({ type: "REMOVE_BOOKMARK", payload: itemId });
     }
   };
 
   const addBookmark = (itemId: number) => {
-    if (!bookmarks.includes(itemId)) {
+    if (!state.bookmarks.includes(itemId)) {
       dispatch({ type: "ADD_BOOKMARK", payload: itemId });
     }
   };
 
   return (
-    <BookmarkContext.Provider
-      value={{ bookmarks, addBookmark, removeBookmark }}
-    >
+    <BookmarkContext.Provider value={{ ...state, addBookmark, removeBookmark }}>
       {children}
     </BookmarkContext.Provider>
   );

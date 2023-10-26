@@ -11,7 +11,6 @@ import {
   PURGE,
   REGISTER,
   REHYDRATE,
-  persistStore
 } from "redux-persist";
 
 const reducers = combineReducers({

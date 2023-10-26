@@ -13,7 +13,7 @@ import {
 import { useAppSelector } from "@/app/hooks";
 
 const Navigation: React.FC = () => {
-  const { token } = useAppSelector((state) => state.auth);
+  const { token, userId } = useAppSelector((state) => state.auth);
   const router = useRouter();
   const currentPath = router.pathname;
 
@@ -68,7 +68,7 @@ const Navigation: React.FC = () => {
         {token && (
           <li>
             <Link
-              href="/bookmarks"
+              href={`/bookmarks/${userId}`}
               className={`${
                 currentPath === "/bookmarks"
                   ? "text-app-white"

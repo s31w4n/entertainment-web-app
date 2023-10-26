@@ -1,7 +1,6 @@
 import { connectToDatabase } from "@/lib/db";
 import { hashPassword } from "@/lib/auth";
 import { NextApiRequest, NextApiResponse } from "next/types";
-import jwt from "jsonwebtoken";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
@@ -46,19 +45,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     bookmarks: [],
   });
 
-  const secret = process.env.NEXTAUTH_SECRET;
-  if (!secret) {
-    throw new Error("Something went wrong!");
-  }
-
-  const token = jwt.sign({ userId: result.insertedId, email: email }, secret, {
-    expiresIn: "3d",
-  });
-
   res.status(201).json({
     message: "Created user!",
     status: "success",
-    token,
     userId: result.insertedId,
   });
 }

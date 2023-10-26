@@ -162,6 +162,8 @@ const AuthForm: React.FC = () => {
         // props.loginHandler();
       }
 
+      console.log(result);
+
       if (result.status === "success") {
         handleNotification(result);
       }

@@ -33,7 +33,7 @@ const CardTrending: React.FC<T> = ({
     try {
       setIsBookmarking(true);
       sendRequest({
-        url: "/api/bookmark",
+        url: "/api/user/handle-bookmark",
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

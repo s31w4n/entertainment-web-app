@@ -1,56 +1,38 @@
-import { NextApiRequest, NextApiResponse } from "next/types";
 import { connectToDatabase } from "@/lib/db";
-import { ObjectId } from "mongodb";
+import User from "@/models/users";
+import { NextApiRequest, NextApiResponse } from "next";
 
-async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
+  await connectToDatabase();
   const { userId, itemId, operation } = req.body;
 
-  const client = await connectToDatabase();
-  const userCollection = client.db("entertainment-web-app").collection("users");
-  const user = await userCollection.findOne({ _id: new ObjectId(userId) });
-
-  if (!user) {
-    res.status(404).json({ message: "User not found!", status: "error" });
-    client.close();
-    return;
-  }
-
-  if (req.method === "POST") {
+  if (req.method === "PUT") {
     try {
+      let user;
+
       if (operation === "push") {
-        // Add itemId to user's bookmarks
-        await userCollection.updateOne(
-          { _id: new ObjectId(userId) },
-          { $addToSet: { bookmarks: itemId } },
-        );
-        client.close();
-        res
-          .status(200)
-          .json({ message: "Added to bookmarks", status: "success" });
+        user = await User.findByIdAndUpdate(userId, {
+          $push: { bookmarks: itemId },
+        });
       } else {
-        // Remove itemId from user's bookmarks
-        await userCollection.updateOne(
-          { _id: new ObjectId(userId) },
-          { $pull: { bookmarks: itemId } },
-        );
-        client.close();
-        res
-          .status(200)
-          .json({ message: "Removed from bookmarks", status: "success" });
+        user = await User.findByIdAndUpdate(userId, {
+          $pull: { bookmarks: itemId },
+        });
       }
       if (!user) {
-        res.status(404).json({ message: "User not found!", status: "error" });
-        client.close();
-        return;
+        return res
+          .status(400)
+          .json({ success: false, msg: "Something went wrong, try again" });
       }
     } catch (error) {
-      res
+      return res
         .status(400)
-        .json({ message: "Something went wrong!", status: "error" });
-      client.close();
-      return;
+        .json({ success: false, msg: "Could not bookmark, try agin" });
     }
+
+    return res.status(200).json({ success: true, msg: "Bookmarked" });
   }
 }
-
-export default handler;

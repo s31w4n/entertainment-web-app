@@ -6,7 +6,6 @@ import { useHttp, useNotification } from "@/hooks";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { authActions } from "@/features/auth/authSlice";
 import { Notification } from ".";
-import { signIn } from "next-auth/react";
 
 const AuthForm: React.FC = () => {
   const { isLoading, error, sendRequest } = useHttp();
@@ -132,19 +131,34 @@ const AuthForm: React.FC = () => {
 
     if (isLoginMode) {
       setFormData((prevState) => ({ ...prevState, isLoading: true }));
-      const result = await signIn("credentials", {
-        redirect: false,
-        email,
-        password,
+      const response = await sendRequest({
+        url: "/api/auth/login",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
       });
 
-      if (result && !result.error) {
+      if (response && !response.error) {
         router.replace("/");
-        console.log(result);
+        console.log(response);
       }
-      if (result && result.error) {
-        handleLoginErrors(result.error);
+      if (response && response.error) {
+        handleLoginErrors(response.error);
       }
+      const tokenExpirationDate = new Date(
+        new Date().getTime() + 1000 * 60 * 60,
+      ).toString();
+
+      dispatch(
+        authActions.login({
+          userId: response.userId,
+          token: response.token,
+          bookmarks: response.bookmarks,
+          tokenExpirationDate,
+        }),
+      );
       setFormData((prevState) => ({ ...prevState, isLoading: false }));
     } else {
       if (!comparePasswords()) {

@@ -20,6 +20,7 @@
     "firebase": "^10.5.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.1.0",
+    "mongoose": "^7.6.3",
     "next": "13.4.19",
     "next-auth": "^4.24.3",
     "postcss": "8.4.28",

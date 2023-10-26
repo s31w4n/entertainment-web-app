@@ -1,7 +1,7 @@
 import { connectToDatabase } from "@/lib/db";
 import { hashPassword } from "@/lib/auth";
 import { NextApiRequest, NextApiResponse } from "next/types";
-import { getAllData } from "@/utils";
+import * as jwt from "jsonwebtoken";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
@@ -28,7 +28,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   const client = await connectToDatabase();
-
   const db = client.db("entertainment-web-app");
 
   const existingUser = await db.collection("users").findOne({ email: email });
@@ -41,17 +40,38 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   const hashedPassword = await hashPassword(password);
 
-  const cloneOriginalData = await getAllData();
+  try {
+    const result = await db.collection("users").insertOne({
+      email: email,
+      password: hashedPassword,
+      bookmarks: [],
+    });
 
-  const result = await db.collection("users").insertOne({
-    email: email,
-    password: hashedPassword,
-    data: cloneOriginalData,
-    bookmarks: [],
-  });
+    const secret = process.env.NEXTAUTH_SECRET;
+    if (!secret) {
+      throw new Error("Something went wrong!");
+    }
 
-  res.status(201).json({ message: "Created user!", status: "success" });
-  client.close();
+    const token = jwt.sign(
+      { userId: result.insertedId, email: email },
+      secret,
+      { expiresIn: "3d" },
+    );
+
+    res.status(201).json({
+      message: "Created user!",
+      status: "success",
+      token,
+      userId: result.insertedId,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Signing up failed, please try again.",
+      status: "error",
+    });
+  } finally {
+    client.close();
+  }
 }
 
 export default handler;

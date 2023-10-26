@@ -1,25 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next/types";
 import { connectToDatabase } from "@/lib/db";
-import { Session, getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]";
+import { ObjectId } from "mongodb";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const session: Session | null = await getServerSession(req, res, authOptions);
-
-  if (!session) {
-    res
-      .status(401)
-      .json({ message: "User is not authenticated", status: "error" });
-    return;
-  }
-
-  const userEmail = session.user?.email;
+  const { userId, itemId, operation } = req.body;
 
   const client = await connectToDatabase();
-  const userCollection = client
-    .db("entertainment-web-app")
-    .collection("users");
-  const user = await userCollection.findOne({ email: userEmail });
+  const userCollection = client.db("entertainment-web-app").collection("users");
+  const user = await userCollection.findOne({ _id: new ObjectId(userId) });
 
   if (!user) {
     res.status(404).json({ message: "User not found!", status: "error" });
@@ -27,37 +15,41 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     return;
   }
 
-  if (req.method === "GET") {
-    client.close();
-    res.status(200).json(user.bookmarks);
-  }
-
   if (req.method === "POST") {
-    const id = req.body.id;
-
-    await userCollection.updateOne(
-      { email: userEmail },
-      { $addToSet: { bookmarks: id } },
-    );
-
-    client.close();
-    res
-      .status(200)
-      .json({ message: "Added to bookmarks", status: "success" });
-  }
-
-  if (req.method === "DELETE") {
-    const id = req.body.id;
-
-    await userCollection.updateOne(
-      { email: userEmail },
-      { $pull: { bookmarks: id } },
-    );
-
-    client.close();
-    res
-      .status(200)
-      .json({ message: "Removed from bookmarks", status: "success" });
+    try {
+      if (operation === "push") {
+        // Add itemId to user's bookmarks
+        await userCollection.updateOne(
+          { _id: new ObjectId(userId) },
+          { $addToSet: { bookmarks: itemId } },
+        );
+        client.close();
+        res
+          .status(200)
+          .json({ message: "Added to bookmarks", status: "success" });
+      } else {
+        // Remove itemId from user's bookmarks
+        await userCollection.updateOne(
+          { _id: new ObjectId(userId) },
+          { $pull: { bookmarks: itemId } },
+        );
+        client.close();
+        res
+          .status(200)
+          .json({ message: "Removed from bookmarks", status: "success" });
+      }
+      if (!user) {
+        res.status(404).json({ message: "User not found!", status: "error" });
+        client.close();
+        return;
+      }
+    } catch (error) {
+      res
+        .status(400)
+        .json({ message: "Something went wrong!", status: "error" });
+      client.close();
+      return;
+    }
   }
 }
 

@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { CardProps as T } from "@/types";
 import { CardImage, CardInfo, BookmarkButton } from ".";
 import Notification from "./Notification";
-import { useBookmark, useNotification } from "@/hooks";
+import { useNotification, useHttp } from "@/hooks";
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import { authActions } from "@/features/auth/authSlice";
+import { messageActions } from "@/features/message/messageSlice";
 
 const CardTrending: React.FC<T> = ({
   title,
@@ -10,14 +13,50 @@ const CardTrending: React.FC<T> = ({
   year,
   rating,
   backdrop_path,
-  bookmarked,
   id,
 }) => {
   const { notification, handleNotification } = useNotification();
-  const { isBookmarking, handleBookmark } = useBookmark({
-    id,
-    handleNotification,
-  });
+
+  const dispatch = useAppDispatch();
+  const { sendRequest } = useHttp();
+  const { userId, bookmarks, token } = useAppSelector((state) => state.auth);
+  const [isBookmarking, setIsBookmarking] = useState(false);
+
+  const isBookmarked = bookmarks.includes(id);
+
+  const bookMarkHandler = () => {
+    if (!userId) {
+      dispatch(messageActions.showLoginMessage());
+      return;
+    }
+
+    try {
+      setIsBookmarking(true);
+      sendRequest({
+        url: "/api/bookmark",
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          userId,
+          itemId: id,
+          operation: isBookmarked ? "pull" : "push",
+        }),
+      });
+
+      dispatch(
+        authActions.updateBookmarks({
+          id,
+          operation: isBookmarked ? "remove" : "add",
+        }),
+      );
+      setIsBookmarking(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="relative cursor-grab active:cursor-grabbing">
@@ -39,14 +78,15 @@ const CardTrending: React.FC<T> = ({
         isTrending
         id={id}
         isBookmarking={isBookmarking}
-        onClick={handleBookmark}
+        isBookmarked={isBookmarked}
+        onClick={bookMarkHandler}
       />
       {notification.active && (
         <Notification
           message={notification.message}
           status={notification.status}
         />
-      )}{" "}
+      )}
     </div>
   );
 };

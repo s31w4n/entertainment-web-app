@@ -1,18 +1,21 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { Layout } from "@/components";
-import SessionProvider from "./SessionProvider";
-import { BookmarkProvider } from "@/context/bookmark_context";
+import { Provider } from "react-redux";
+import { store } from "@/app/store";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistStore } from "redux-persist";
+
+let persistor = persistStore(store);
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <SessionProvider>
-      <BookmarkProvider>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
         <Layout>
           <Component {...pageProps} />
         </Layout>
-      </BookmarkProvider>
-    </SessionProvider>
+      </PersistGate>
+    </Provider>
   );
 }
- 

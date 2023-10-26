@@ -1,5 +1,4 @@
 import { Media } from "@/types";
-import { getBookmarkData } from "./handleBookmarks";
 
 export const TMDB_ENDPOINT = process.env.TMDB_ENDPOINT;
 export const TMDB_API_KEY = process.env.TMDB_API_KEY;
@@ -81,3 +80,12 @@ export function getTitle(searchQuery: string, searchResult: Media[]) {
   }
   return title;
 }
+
+// Convert Data (userId to string)
+const convertData = (doc: any) => {
+  const convertedData = doc.toObject();
+  convertedData._id = convertedData._id.toString();
+  return convertedData;
+};
+
+export default convertData;

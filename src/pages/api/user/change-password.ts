@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next/types";
 import { connectToDatabase } from "@/lib/db";
 import { Session, getServerSession } from "next-auth";
 import { hashPassword, verifyPassword } from "@/lib/auth";
-import { authOptions } from "../auth/[...nextauth]";
+import { authOptions } from "../auth/login";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "PATCH") {

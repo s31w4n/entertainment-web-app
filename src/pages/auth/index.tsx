@@ -1,12 +1,11 @@
 import React, { useState } from "react";
+import type { NextPage } from "next";
 import { Logo, CrossCircle } from "@/assets/icons";
 import Image from "next/image";
 import AuthForm from "@/components/AuthForm";
 import Link from "next/link";
-import { getSession } from "next-auth/react";
-import { GetServerSidePropsContext } from "next";
 
-const Auth: React.FC = () => {
+const Auth: NextPage = () => {
   const [isLogin, setIsLogin] = useState(true);
 
   const loginHandler = () => {
@@ -28,28 +27,10 @@ const Auth: React.FC = () => {
             <CrossCircle />
           </Link>
         </div>
-        <AuthForm isLogin={isLogin} loginHandler={loginHandler} />
+        <AuthForm />
       </div>
     </div>
   );
 };
 
 export default Auth;
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  // Get Session
-  const session = await getSession({ req: context.req });
-
-  if (session) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/",
-      },
-    };
-  }
-
-  return {
-    props: { session },
-  };
-}

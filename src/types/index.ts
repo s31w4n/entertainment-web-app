@@ -152,10 +152,11 @@ export interface AuthFormProps {}
 // Auth Input Props
 export interface AuthInputProps {
   id: string;
-  name: string;
   type: string;
   placeholder: string;
   error: string;
+  value: string;
+  onChange: (value: string) => void;
 }
 
 // Auth Button Props

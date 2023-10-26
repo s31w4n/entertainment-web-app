@@ -1,7 +1,7 @@
 import { connectToDatabase } from "@/lib/db";
 import { hashPassword } from "@/lib/auth";
 import { NextApiRequest, NextApiResponse } from "next/types";
-import * as jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {

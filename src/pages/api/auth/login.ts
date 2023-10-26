@@ -1,7 +1,7 @@
 import { connectToDatabase } from "@/lib/db";
-import { verifyPassword, hashPassword } from "@/lib/auth";
+import { verifyPassword } from "@/lib/auth";
 import { NextApiRequest, NextApiResponse } from "next/types";
-import * as jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
@@ -31,16 +31,17 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     throw new Error("Wrong password");
   }
 
-  client.close();
-
   const secret = process.env.NEXTAUTH_SECRET;
   if (!secret) {
+    client.close();
     throw new Error("Something went wrong!");
   }
 
   const token = jwt.sign({ userId: user.id, email: user.email }, secret, {
     expiresIn: "3d",
   });
+
+  client.close();
 
   res.status(201).json({
     userId: user.id.toString(),

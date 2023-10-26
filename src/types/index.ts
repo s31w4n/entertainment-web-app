@@ -155,8 +155,6 @@ export interface AuthInputProps {
   type: string;
   placeholder: string;
   error: string;
-  value: string;
-  onChange: (value: string) => void;
 }
 
 // Auth Button Props

@@ -6,6 +6,7 @@ import { useHttp, useNotification } from "@/hooks";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { authActions } from "@/features/auth/authSlice";
 import { Notification } from ".";
+import { signIn } from "next-auth/react";
 
 const AuthForm: React.FC = () => {
   const { isLoading, error, sendRequest } = useHttp();
@@ -131,67 +132,41 @@ const AuthForm: React.FC = () => {
 
     if (isLoginMode) {
       setFormData((prevState) => ({ ...prevState, isLoading: true }));
-      try {
-        const response = await sendRequest({
-          url: "/api/auth/login",
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            password,
-          }),
-        });
-        if (response && !response.error) {
-          router.replace("/");
-        }
+      const result = await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
+      });
 
-        if (response && response.error) {
-          handleLoginErrors(response.error);
-        }
-
-        const tokenExpirationDate = new Date(
-          Date.now() + 1000 * 60 * 60 * 72,
-        ).toString();
-
-        dispatch(
-          authActions.login({
-            userId: response.userId,
-            token: response.token,
-            bookmarks: response.bookmarks,
-            tokenExpirationDate,
-          }),
-        );
-        router.push("/");
-        setFormData((prevState) => ({ ...prevState, isLoading: false }));
-      } catch (error) {
-        console.log(error);
+      if (result && !result.error) {
+        router.replace("/");
+        console.log(result);
       }
+      if (result && result.error) {
+        handleLoginErrors(result.error);
+      }
+      setFormData((prevState) => ({ ...prevState, isLoading: false }));
     } else {
       if (!comparePasswords()) {
         return;
       }
       setFormData((prevState) => ({ ...prevState, isLoading: true }));
-      try {
-        const result = await createUser(email, password);
-        if (result.error) {
-          handleSignUpErrors(result.error);
-        }
 
-        if (!result.error) {
-          clearForm();
-          // props.loginHandler();
-        }
-
-        if (result.status === "success") {
-          handleNotification(result);
-        }
-
-        setFormData((prevState) => ({ ...prevState, isLoading: false }));
-      } catch (error) {
-        console.log(error);
+      const result = await createUser(email, password);
+      if (result.error) {
+        handleSignUpErrors(result.error);
       }
+
+      if (!result.error) {
+        clearForm();
+        // props.loginHandler();
+      }
+
+      if (result.status === "success") {
+        handleNotification(result);
+      }
+
+      setFormData((prevState) => ({ ...prevState, isLoading: false }));
     }
   };
 

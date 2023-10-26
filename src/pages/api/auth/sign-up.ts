@@ -40,38 +40,27 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   const hashedPassword = await hashPassword(password);
 
-  try {
-    const result = await db.collection("users").insertOne({
-      email: email,
-      password: hashedPassword,
-      bookmarks: [],
-    });
+  const result = await db.collection("users").insertOne({
+    email: email,
+    password: hashedPassword,
+    bookmarks: [],
+  });
 
-    const secret = process.env.NEXTAUTH_SECRET;
-    if (!secret) {
-      throw new Error("Something went wrong!");
-    }
-
-    const token = jwt.sign(
-      { userId: result.insertedId, email: email },
-      secret,
-      { expiresIn: "3d" },
-    );
-
-    res.status(201).json({
-      message: "Created user!",
-      status: "success",
-      token,
-      userId: result.insertedId,
-    });
-  } catch (error) {
-    res.status(500).json({
-      message: "Signing up failed, please try again.",
-      status: "error",
-    });
-  } finally {
-    client.close();
+  const secret = process.env.NEXTAUTH_SECRET;
+  if (!secret) {
+    throw new Error("Something went wrong!");
   }
+
+  const token = jwt.sign({ userId: result.insertedId, email: email }, secret, {
+    expiresIn: "3d",
+  });
+
+  res.status(201).json({
+    message: "Created user!",
+    status: "success",
+    token,
+    userId: result.insertedId,
+  });
 }
 
 export default handler;

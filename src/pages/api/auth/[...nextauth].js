@@ -1,10 +1,9 @@
 import { connectToDatabase } from "@/lib/db";
 import NextAuth from "next-auth/next";
-import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { verifyPassword } from "@/lib/auth";
 
-export const authOptions: NextAuthOptions = {
+export const authOptions = {
   session: {
     strategy: "jwt",
   },
@@ -34,8 +33,6 @@ export const authOptions: NextAuthOptions = {
           .collection("users");
         const user = await userCollection.findOne({ email: credentials.email });
 
-        console.log("logs the user ", user);
-
         if (!user) {
           client.close();
           throw new Error("User not found");
@@ -57,31 +54,30 @@ export const authOptions: NextAuthOptions = {
         }
 
         client.close();
-        return user as any;
+        return user;
       },
     }),
   ],
   callbacks: {
     async jwt({ token, user, session }) {
-      console.log("jwt callback: ", { token, user, session });
       if (user) {
         return {
           ...token,
-          userId: user.id,
+          userId: user._id,
+          bookmarks: user.bookmarks,
         };
       }
       return token;
     },
     async session({ session, token, user }) {
-      console.log("session callback: ", { token, user, session });
       return {
         ...session,
         user: {
           ...session.user,
-          userId: token.id,
+          userId: token.userId,
+          bookmarks: token.bookmarks,
         },
       };
-      return session;
     },
   },
   secret: process.env.NEXTAUTH_SECRET,

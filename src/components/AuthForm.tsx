@@ -22,8 +22,10 @@ const AuthForm: React.FC = () => {
     isLoading: false,
   });
 
-  const { data: session } = useSession();
-  console.log(session);
+  const { data: session, status } = useSession();
+  if (status === "authenticated") {
+    console.log("authForm", session);
+  }
 
   const dispatch = useAppDispatch();
   const isLoginMode = useAppSelector((state) => state.auth.isLoginMode);
@@ -149,9 +151,15 @@ const AuthForm: React.FC = () => {
         password,
       });
 
-      console.log(result);
-
       if (result && !result.error) {
+        if (status === "authenticated") {
+          dispatch(
+            authActions.login({
+              userId: session.user.userId!,
+              bookmarks: session.user.bookmarks!,
+            }),
+          );
+        }
         router.replace("/");
       }
 

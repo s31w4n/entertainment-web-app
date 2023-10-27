@@ -157,7 +157,7 @@ const AuthForm: React.FC = () => {
           dispatch(
             authActions.login({
               userId: session.user.userId!,
-              bookmarks: session.user.bookmarks || [],
+              bookmarks: session.user.bookmarks!,
             }),
           );
         }

@@ -19,6 +19,7 @@ function useBookmark({ id, handleNotification }: T) {
         message: "Please login to bookmark",
         status: "false",
       });
+      return;
     }
 
     setIsBookmarking(true);

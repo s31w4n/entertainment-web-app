@@ -154,7 +154,6 @@ export interface AuthFormProps {}
 // Auth Input Props
 export interface AuthInputProps {
   id: string;
-  name: string;
   type: string;
   value: string;
   content: string;

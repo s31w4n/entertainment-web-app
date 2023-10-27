@@ -3,7 +3,6 @@ import { AuthInputProps as T } from "@/types";
 
 const AuthInput: React.FC<T> = ({
   id,
-  name,
   type,
   value,
   content,
@@ -30,12 +29,11 @@ const AuthInput: React.FC<T> = ({
 
   return (
     <div className="relative">
-      <label htmlFor="auth" className="sr-only">
+      <label className="sr-only">
         {content}
       </label>
       <input
         id={id}
-        name={name}
         type={type}
         placeholder={placeholder}
         value={value}

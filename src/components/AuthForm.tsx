@@ -198,7 +198,6 @@ const AuthForm: React.FC = () => {
     <form className="flex flex-col gap-6" onSubmit={submitHandler}>
       <AuthInput
         id="email"
-        name="email"
         type="email"
         placeholder="Email address"
         content="Your Email"
@@ -208,7 +207,6 @@ const AuthForm: React.FC = () => {
       />
       <AuthInput
         id="password"
-        name="password"
         type="password"
         placeholder="Password"
         content="Your Password"
@@ -219,7 +217,6 @@ const AuthForm: React.FC = () => {
       {!isLoginMode && (
         <AuthInput
           id="Repeat password"
-          name="Repeat password"
           type="password"
           placeholder="Repeat password"
           content="Repeat password"

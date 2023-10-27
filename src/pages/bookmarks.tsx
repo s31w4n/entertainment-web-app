@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import type { NextPage } from "next";
 import { SearchBar, CollectionNormal, Loading } from "@/components";
-import { getAllData, getBookmarks, getSearchResult, getTitle } from "@/utils";
+import { getAllData, getSearchResult, getTitle } from "@/utils";
 import { BookmarkPageProps as T, Media } from "@/types";
 import { BookmarkIcon } from "@/assets/bookmark";
 import { useSearch } from "@/hooks";

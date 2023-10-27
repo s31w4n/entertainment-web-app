@@ -24,6 +24,7 @@ export interface Media {
 export interface HomePageProps {
   trending: Media[];
   recommended: Media[];
+  session: any;
 }
 
 // Movies Page Props

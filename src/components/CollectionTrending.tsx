@@ -31,7 +31,6 @@ const CollectionTrending: React.FC<T> = ({ data, title }) => {
                   backdrop_path={item.backdrop_path}
                   year={item.year}
                   rating={item.rating}
-                  bookmarked={item.isBookmarked}
                 />
               </SwiperSlide>
             ))}

@@ -24,7 +24,6 @@ const MoviesDetails: NextPage<T> = ({ data }) => {
     status,
     vote_average,
     year,
-    isBookmarked,
     id,
   } = data;
 
@@ -37,7 +36,6 @@ const MoviesDetails: NextPage<T> = ({ data }) => {
             id={id}
             title={title}
             poster_path={poster_path}
-            bookmarked={isBookmarked}
           />
           <div className="min-[870px]:w-[calc(100%-440px)]">
             <DetailsTitle title={title} />

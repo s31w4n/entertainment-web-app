@@ -34,6 +34,8 @@ export const authOptions: NextAuthOptions = {
           .collection("users");
         const user = await userCollection.findOne({ email: credentials.email });
 
+        console.log("logs the user ", user);
+
         if (!user) {
           client.close();
           throw new Error("User not found");
@@ -62,10 +64,23 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user, session }) {
       console.log("jwt callback: ", { token, user, session });
+      if (user) {
+        return {
+          ...token,
+          userId: user.id,
+        };
+      }
       return token;
     },
     async session({ session, token, user }) {
       console.log("session callback: ", { token, user, session });
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          userId: token.id,
+        },
+      };
       return session;
     },
   },

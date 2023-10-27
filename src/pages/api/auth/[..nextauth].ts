@@ -55,11 +55,7 @@ export const authOptions: NextAuthOptions = {
         }
 
         client.close();
-        return {
-          email: user.email,
-          id: user._id.toString(),
-          bookmarks: user.bookmarks,
-        };
+        return user as any;
       },
     }),
   ],

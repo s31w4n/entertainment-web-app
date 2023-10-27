@@ -169,7 +169,7 @@ const AuthForm: React.FC = () => {
 
       if (!result.error) {
         clearForm();
-        dispatch(authActions.toggleLogin);
+        dispatch(authActions.toggleLogin());
       }
 
       if (result.status === "success") {
@@ -225,7 +225,7 @@ const AuthForm: React.FC = () => {
         <button
           type="button"
           className="text-app-red"
-          onClick={() => dispatch(authActions.toggleLogin)}
+          onClick={() => dispatch(authActions.toggleLogin())}
         >
           {isLoginMode ? "Sign Up" : "Login"}
         </button>

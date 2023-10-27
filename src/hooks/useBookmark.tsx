@@ -9,7 +9,7 @@ function useBookmark({ id, handleNotification }: T) {
   const bookmarks = useAppSelector((state) => state.auth.bookmarks);
   const dispatch = useAppDispatch();
   const isBookmarked = bookmarks.includes(id);
-  console.log(bookmarks);
+  const operation = isBookmarked ? "remove" : "add";
 
   const handleBookmark = async () => {
     setIsBookmarking(true);
@@ -19,11 +19,11 @@ function useBookmark({ id, handleNotification }: T) {
 
     if (userBookmarks.includes(id)) {
       const result = await handleBookmarks("DELETE", id);
-      dispatch(authActions.updateBookmarks({ id, operation: "pull" }));
+      dispatch(authActions.updateBookmarks({ id, operation: operation }));
       handleNotification(result);
     } else {
       const result = await handleBookmarks("POST", id);
-      dispatch(authActions.updateBookmarks({ id, operation: "push" }));
+      dispatch(authActions.updateBookmarks({ id, operation: operation }));
       handleNotification(result);
     }
     setIsBookmarking(false);

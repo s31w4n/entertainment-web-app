@@ -11,6 +11,8 @@ function useBookmark({ id, handleNotification }: T) {
   const dispatch = useAppDispatch();
   const isBookmarked = bookmarks.includes(id);
   const operation = isBookmarked ? "remove" : "add";
+  console.log(operation);
+
   const { data: session } = useSession();
 
   const handleBookmark = async () => {

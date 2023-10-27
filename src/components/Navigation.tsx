@@ -10,10 +10,8 @@ import {
   SeriesIcon,
   BookmarkIcon,
 } from "@/assets/icons";
-import { useAppSelector } from "@/app/hooks";
 
 const Navigation: React.FC = () => {
-  const { token, userId } = useAppSelector((state) => state.auth);
   const router = useRouter();
   const currentPath = router.pathname;
 
@@ -65,20 +63,18 @@ const Navigation: React.FC = () => {
             <SeriesIcon className="h-4 w-4 sm:h-5 sm:w-5" />
           </Link>
         </li>
-        {token && (
-          <li>
-            <Link
-              href={`/bookmarks/${userId}`}
-              className={`${
-                currentPath === "/bookmarks"
-                  ? "text-app-white"
-                  : "text-app-greyish-blue hover:text-app-red"
-              }`}
-            >
-              <BookmarkIcon />
-            </Link>
-          </li>
-        )}
+        <li>
+          <Link
+            href="/bookmarks"
+            className={`${
+              currentPath === "/bookmarks"
+                ? "text-app-white"
+                : "text-app-greyish-blue hover:text-app-red"
+            }`}
+          >
+            <BookmarkIcon />
+          </Link>
+        </li>
       </ul>
       <div className="hidden h-40 lg:block"></div>
       <div className="rounded-full bg-app-white">

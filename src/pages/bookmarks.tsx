@@ -1,44 +1,46 @@
 import React, { useState, useEffect } from "react";
-import type { NextPage } from "next";
 import { SearchBar, CollectionNormal, Loading } from "@/components";
-import { getAllData, getSearchResult, getTitle } from "@/utils";
+import { getAllData, getBookmarks, getSearchResult, getTitle } from "@/utils";
 import { BookmarkPageProps as T, Media } from "@/types";
 import { BookmarkIcon } from "@/assets/bookmark";
 import { useSearch } from "@/hooks";
-import { useAppSelector } from "@/app/hooks";
+import { getSession } from "next-auth/react";
+import { GetServerSidePropsContext } from "next";
+import { handleBookmarks } from "@/utils/handleBookmarks";
 
-const Bookmark: NextPage<T> = ({ allData }) => {
-  const [bookmarked, setBookmarked] = useState<Media[]>([]);
+const Bookmark: React.FC<T> = ({ session, allData }) => {
+  const [bookmarks, setBookmarks] = useState<Media[]>([]);
   const [loading, setLoading] = useState(false);
-  const { bookmarks, token } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
     const fetchData = async () => {
-      if (token) {
+      if (session) {
         setLoading(true);
-        const userBookmarks = allData.filter((item) =>
-          bookmarks.includes(item.id),
-        );
+        const userBookmarks = await handleBookmarks();
         console.log(userBookmarks);
-        setBookmarked(userBookmarks);
+        const data = allData;
+        const bookmarksData = data.filter((item) =>
+          userBookmarks.includes(item.id),
+        );
+        setBookmarks(bookmarksData);
         setLoading(false);
       } else {
-        setBookmarked([]);
+        setBookmarks([]);
       }
     };
 
     fetchData();
-  }, [bookmarks, token]);
+  }, [setBookmarks]);
 
-  const bookmarkMovies = bookmarked.filter((item) => item.category === "Movie");
-  const bookmarkSeries = bookmarked.filter(
+  const bookmarkMovies = bookmarks.filter((item) => item.category === "Movie");
+  const bookmarkSeries = bookmarks.filter(
     (item) => item.category === "TV Series",
   );
 
   const { searchQuery, setSearchQuery, isLoading, debouncedSearchQuery } =
     useSearch();
 
-  const searchResult = getSearchResult(searchQuery, bookmarked);
+  const searchResult = getSearchResult(searchQuery, bookmarks);
   const title = getTitle(searchQuery, searchResult);
 
   if (loading) {
@@ -91,12 +93,15 @@ const Bookmark: NextPage<T> = ({ allData }) => {
 
 export default Bookmark;
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  // Get Session
+  const session = await getSession({ req: context.req });
   // Get All Data
   const allData = await getAllData();
 
   return {
     props: {
+      session,
       allData,
     },
   };

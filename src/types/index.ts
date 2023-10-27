@@ -1,3 +1,5 @@
+import { Session } from "next-auth";
+
 // Media Type
 export interface Media {
   id: number;
@@ -35,7 +37,7 @@ export interface SeriesPageProps {
 }
 
 export interface BookmarkPageProps {
-  session: any;
+  session: Session;
   allData: Media[];
 }
 
@@ -94,7 +96,6 @@ export interface CardHoverProps {
 export interface BookmarkButtonProps {
   isTrending?: boolean;
   id: number;
-  isBookmarked: boolean;
   isBookmarking: boolean;
   onClick: () => void;
 }
@@ -109,6 +110,7 @@ export interface SearchButtonProps {
 export interface DetailsImageProps {
   poster_path: string;
   title: string;
+  bookmarked: boolean;
   id: number;
 }
 
@@ -147,13 +149,20 @@ export interface LoadingProps {
 }
 
 // Auth Form Props
-export interface AuthFormProps {}
+export interface AuthFormProps {
+  isLogin: boolean;
+  loginHandler: () => void;
+}
 
 // Auth Input Props
 export interface AuthInputProps {
   id: string;
+  name: string;
   type: string;
+  value: string;
+  content: string;
   placeholder: string;
+  onChange: (value: string) => void;
   error: string;
 }
 
@@ -176,33 +185,4 @@ export interface NotificationProps {
 export interface useBookmarkProps {
   id: number;
   handleNotification: (result: NotificationProps) => void;
-}
-
-// User Props
-export interface UserProps {
-  accessToken: string | any;
-  auth: any;
-  displayName: string;
-  email: string | any;
-  emailVerified: boolean;
-  isAnonymous: boolean;
-  metadata: any;
-  phoneNumber: any;
-  photoURL: string | any;
-  proactiveRefresh: any;
-  providerData: any;
-  providerId: string | any;
-  reloadListener: any | null;
-  reloadUserInfo: any;
-  tenantId: any | null;
-  uid: string;
-}
-
-// Media Thunk Props
-export interface MediaThunkProps {
-  background?: string;
-  date?: string;
-  poster_path: string;
-  id: number;
-  title: string;
 }

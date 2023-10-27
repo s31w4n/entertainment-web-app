@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
-import type { NextPage } from "next";
+import React from "react";
 import { HomePageProps as T } from "@/types";
+import { getSession } from "next-auth/react";
+import { GetServerSidePropsContext } from "next";
 import {
   getTrending,
   getRecommended,
@@ -14,28 +15,10 @@ import {
   CollectionNormal,
   Loading,
 } from "@/components";
-import { useAppSelector, useAppDispatch } from "@/app/hooks";
-import { authActions } from "@/features/auth/authSlice";
 
-const Home: NextPage<T> = ({ trending, recommended }) => {
-  const dispatch = useAppDispatch();
-  const { token, tokenExpirationDate } = useAppSelector((state) => state.auth);
+const Home: React.FC<T> = ({ trending, recommended }) => {
   const { searchQuery, setSearchQuery, isLoading, debouncedSearchQuery } =
     useSearch();
-
-  useEffect(() => {
-    let logoutTimer;
-    if (token && tokenExpirationDate) {
-      const remainingTime =
-        new Date(tokenExpirationDate).getTime() - new Date().getTime();
-      logoutTimer = setTimeout(
-        () => dispatch(authActions.logout()),
-        remainingTime,
-      );
-    } else {
-      clearTimeout(logoutTimer);
-    }
-  }, [token, dispatch, tokenExpirationDate]);
 
   const allData = trending.concat(recommended);
   const searchResult = getSearchResult(searchQuery, allData);
@@ -66,7 +49,9 @@ const Home: NextPage<T> = ({ trending, recommended }) => {
 
 export default Home;
 
-export async function getServerSideProps() {
+export async function getStaticProps(context: GetServerSidePropsContext) {
+  // Get Session
+  const session = await getSession({ req: context.req });
   // Get Trending Media
   const trending = await getTrending();
   // Get Recommended Media
@@ -74,8 +59,10 @@ export async function getServerSideProps() {
 
   return {
     props: {
+      session,
       trending,
       recommended,
     },
+    revalidate: 60, // Revalidate (rebuild) the page every 60 seconds (adjust as needed)
   };
 }

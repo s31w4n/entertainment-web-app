@@ -1,11 +1,10 @@
 import React from "react";
-import type { NextPage } from "next";
 import { SeriesPageProps as T } from "@/types";
 import { SearchBar, CollectionNormal, Loading } from "@/components";
 import { getSeries, getSearchResult, getTitle } from "@/utils";
 import { useSearch } from "@/hooks";
 
-const Series: NextPage<T> = ({ series }) => {
+const Series: React.FC<T> = ({ series }) => {
   const { searchQuery, setSearchQuery, isLoading, debouncedSearchQuery } =
     useSearch();
 
@@ -33,7 +32,7 @@ const Series: NextPage<T> = ({ series }) => {
 
 export default Series;
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   // Get Series
   const series = await getSeries();
 
@@ -41,5 +40,6 @@ export async function getServerSideProps() {
     props: {
       series,
     },
+    revalidate: 60,
   };
 }

@@ -1,38 +1,60 @@
+import { NextApiRequest, NextApiResponse } from "next/types";
 import { connectToDatabase } from "@/lib/db";
-import User from "@/models/users";
-import { NextApiRequest, NextApiResponse } from "next";
+import { Session, getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse,
-) {
-  await connectToDatabase();
-  const { userId, itemId, operation } = req.body;
+async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const session: Session | null = await getServerSession(req, res, authOptions);
 
-  if (req.method === "PUT") {
-    try {
-      let user;
+  if (!session) {
+    res
+      .status(401)
+      .json({ message: "User is not authenticated", status: "error" });
+    return;
+  }
 
-      if (operation === "push") {
-        user = await User.findByIdAndUpdate(userId, {
-          $push: { bookmarks: itemId },
-        });
-      } else {
-        user = await User.findByIdAndUpdate(userId, {
-          $pull: { bookmarks: itemId },
-        });
-      }
-      if (!user) {
-        return res
-          .status(400)
-          .json({ success: false, msg: "Something went wrong, try again" });
-      }
-    } catch (error) {
-      return res
-        .status(400)
-        .json({ success: false, msg: "Could not bookmark, try agin" });
-    }
+  const userEmail = session.user?.email;
 
-    return res.status(200).json({ success: true, msg: "Bookmarked" });
+  const client = await connectToDatabase();
+  const userCollection = client.db("entertainment-web-app").collection("users");
+  const user = await userCollection.findOne({ email: userEmail });
+
+  if (!user) {
+    res.status(404).json({ message: "User not found!", status: "error" });
+    client.close();
+    return;
+  }
+
+  if (req.method === "GET") {
+    client.close();
+    res.status(200).json(user.bookmarks);
+  }
+
+  if (req.method === "POST") {
+    const id = req.body.id;
+
+    await userCollection.updateOne(
+      { email: userEmail },
+      { $addToSet: { bookmarks: id } },
+    );
+
+    client.close();
+    res.status(200).json({ message: "Added to bookmarks", status: "success" });
+  }
+
+  if (req.method === "DELETE") {
+    const id = req.body.id;
+
+    await userCollection.updateOne(
+      { email: userEmail },
+      { $pull: { bookmarks: id } },
+    );
+
+    client.close();
+    res
+      .status(200)
+      .json({ message: "Removed from bookmarks", status: "success" });
   }
 }
+
+export default handler;

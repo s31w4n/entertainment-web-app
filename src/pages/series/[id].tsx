@@ -1,5 +1,4 @@
 import React from "react";
-import type { NextPage } from "next";
 import { getMediaDetails } from "@/utils";
 import { DetailsPageProps as T } from "@/types";
 import { GetServerSidePropsContext } from "next";
@@ -13,7 +12,7 @@ import {
   DetailsGenres,
 } from "@/components";
 
-const SeriesDetails: NextPage<T> = ({ data }) => {
+const SeriesDetails: React.FC<T> = ({ data }) => {
   const {
     poster_path,
     title,
@@ -24,6 +23,7 @@ const SeriesDetails: NextPage<T> = ({ data }) => {
     status,
     vote_average,
     year,
+    isBookmarked,
     id,
   } = data;
 
@@ -32,7 +32,12 @@ const SeriesDetails: NextPage<T> = ({ data }) => {
       <section className="p-2 md:pb-8 lg:mt-16">
         <BackButton />
         <div className="flex gap-5 max-[870px]:flex-col sm:gap-10">
-          <DetailsImage id={id} title={title} poster_path={poster_path} />
+          <DetailsImage
+            id={id}
+            title={title}
+            poster_path={poster_path}
+            bookmarked={isBookmarked}
+          />
           <div className="min-[870px]:w-[calc(100%-440px)]">
             <DetailsTitle title={title} />
             <DetailsRating vote_average={vote_average} />

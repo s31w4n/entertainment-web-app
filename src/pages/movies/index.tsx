@@ -1,11 +1,10 @@
 import React from "react";
-import type { NextPage } from "next";
 import { SearchBar, CollectionNormal, Loading } from "@/components";
 import { MoviePageProps as T } from "@/types";
 import { getMovies, getSearchResult, getTitle } from "@/utils";
 import { useSearch } from "@/hooks";
 
-const Movies: NextPage<T> = ({ movies }) => {
+const Movies: React.FC<T> = ({ movies }) => {
   const { searchQuery, setSearchQuery, isLoading, debouncedSearchQuery } =
     useSearch();
 
@@ -34,7 +33,7 @@ const Movies: NextPage<T> = ({ movies }) => {
 
 export default Movies;
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   // Get Movies
   const movies = await getMovies();
 
@@ -42,5 +41,6 @@ export async function getServerSideProps() {
     props: {
       movies,
     },
+    revalidate: 60,
   };
 }

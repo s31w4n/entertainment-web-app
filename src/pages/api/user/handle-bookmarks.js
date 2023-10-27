@@ -1,10 +1,8 @@
-import { NextApiRequest, NextApiResponse } from "next/types";
 import { connectToDatabase } from "@/lib/db";
-import { Session, getServerSession } from "next-auth";
-import { authOptions } from "../auth/[...nextauth]";
+import {  getServerSession } from "next-auth";
 
-async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const session: Session | null = await getServerSession(req, res, authOptions);
+async function handler(req, res) {
+  const session = await getServerSession(req, res);
 
   if (!session) {
     res

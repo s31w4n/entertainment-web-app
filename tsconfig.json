@@ -22,6 +22,6 @@
       }
     ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/lib/db.ts", "src/pages/api/auth/[...nextauth].js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/lib/db.ts", "src/pages/api/auth/[...nextauth].js", "src/pages/api/user/change-password.js", "src/pages/api/user/handle-bookmarks.js"],
   "exclude": ["node_modules"]
 }

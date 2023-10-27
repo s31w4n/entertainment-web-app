@@ -150,10 +150,7 @@ export interface LoadingProps {
 }
 
 // Auth Form Props
-export interface AuthFormProps {
-  isLogin: boolean;
-  loginHandler: () => void;
-}
+export interface AuthFormProps {}
 
 // Auth Input Props
 export interface AuthInputProps {

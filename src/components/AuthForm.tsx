@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { AuthFormProps as T } from "@/types";
 import { useRouter } from "next/router";
 import AuthInput from "./AuthInput";
 import AuthButton from "./AuthButton";
-import Link from "next/link";
 import { signIn } from "next-auth/react";
-import { useNotification } from "@/hooks";
+import { useNotification, useHttp } from "@/hooks";
 import Notification from "./Notification";
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import { authActions } from "@/features/auth/authSlice";
 
-const AuthForm: React.FC<T> = ({ isLogin, loginHandler }) => {
+const AuthForm: React.FC = () => {
   const { notification, handleNotification } = useNotification();
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -20,6 +20,9 @@ const AuthForm: React.FC<T> = ({ isLogin, loginHandler }) => {
     repeatedPasswordError: "",
     isLoading: false,
   });
+
+  const dispatch = useAppDispatch();
+  const isLoginMode = useAppSelector((state) => state.auth.isLoginMode);
 
   function handleEmail(value: string) {
     setFormData((prevState) => ({ ...prevState, email: value }));
@@ -134,7 +137,7 @@ const AuthForm: React.FC<T> = ({ isLogin, loginHandler }) => {
     const { email, password } = formData;
 
     // User Login
-    if (isLogin) {
+    if (isLoginMode) {
       setFormData((prevState) => ({ ...prevState, isLoading: true }));
       const result = await signIn("credentials", {
         redirect: false,
@@ -166,7 +169,7 @@ const AuthForm: React.FC<T> = ({ isLogin, loginHandler }) => {
 
       if (!result.error) {
         clearForm();
-        loginHandler();
+        dispatch(authActions.toggleLogin);
       }
 
       if (result.status === "success") {
@@ -199,7 +202,7 @@ const AuthForm: React.FC<T> = ({ isLogin, loginHandler }) => {
         error={formData.passwordError}
         onChange={handlePassword}
       />
-      {!isLogin && (
+      {!isLoginMode && (
         <AuthInput
           id="Repeat password"
           name="Repeat password"
@@ -213,14 +216,18 @@ const AuthForm: React.FC<T> = ({ isLogin, loginHandler }) => {
       )}
       <AuthButton
         isLoading={formData.isLoading}
-        text={isLogin ? "Login to your account" : "Create an account"}
+        text={isLoginMode ? "Login to your account" : "Create an account"}
       />
       <div className="mx-auto text-app-body-md">
         <span className="mr-2">
-          {isLogin ? "Don't have an account?" : "Already have an account?"}
+          {isLoginMode ? "Don't have an account?" : "Already have an account?"}
         </span>
-        <button type="button" className="text-app-red" onClick={loginHandler}>
-          {isLogin ? "Sign Up" : "Login"}
+        <button
+          type="button"
+          className="text-app-red"
+          onClick={() => dispatch(authActions.toggleLogin)}
+        >
+          {isLoginMode ? "Sign Up" : "Login"}
         </button>
       </div>
       {notification.active && (

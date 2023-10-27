@@ -3,16 +3,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 interface AuthState {
   isLoginMode: boolean;
   userId: string | null;
-  token: string | null;
-  tokenExpirationDate: Date | null | string;
   bookmarks: number[];
 }
 
 const initialState: AuthState = {
   isLoginMode: true,
   userId: null,
-  token: null,
-  tokenExpirationDate: null,
   bookmarks: [],
 };
 
@@ -30,14 +26,10 @@ const authSlice = createSlice({
       }>,
     ) {
       state.userId = action.payload.userId;
-      state.token = action.payload.token;
-      state.tokenExpirationDate = action.payload.tokenExpirationDate;
       state.bookmarks = action.payload.bookmarks;
     },
     logout(state) {
       state.userId = null;
-      state.token = null;
-      state.tokenExpirationDate = null;
       state.bookmarks = [];
     },
     toggleLogin(state) {

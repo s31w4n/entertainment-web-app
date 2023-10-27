@@ -22,8 +22,8 @@ const AuthForm: React.FC = () => {
     isLoading: false,
   });
 
-  const { data: session, status } = useSession();
-  if (status === "authenticated") {
+  const { data: session } = useSession();
+  if (session) {
     console.log("authForm", session);
   }
 
@@ -152,7 +152,7 @@ const AuthForm: React.FC = () => {
       });
 
       if (result && !result.error) {
-        if (status === "authenticated") {
+        if (session) {
           dispatch(
             authActions.login({
               userId: session.user.userId!,

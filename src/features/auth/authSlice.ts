@@ -20,8 +20,6 @@ const authSlice = createSlice({
       state,
       action: PayloadAction<{
         userId: string;
-        token: string;
-        tokenExpirationDate: string;
         bookmarks: number[];
       }>,
     ) {

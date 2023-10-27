@@ -55,7 +55,7 @@ export const authOptions: NextAuthOptions = {
         }
 
         client.close();
-        return { email: user.email, id: "id" };
+        return { email: user.email, id: user._id.toString() };
       },
     }),
   ],

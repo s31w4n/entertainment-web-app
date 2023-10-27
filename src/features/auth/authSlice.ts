@@ -41,7 +41,7 @@ const authSlice = createSlice({
       action: PayloadAction<{ id: number; operation: string }>,
     ) {
       const { id, operation } = action.payload;
-      if (operation === "remove") {
+      if (operation === "pull") {
         state.bookmarks === state.bookmarks.filter((itemId) => itemId !== id);
       } else {
         state.bookmarks.push(id);

@@ -1,5 +1,3 @@
-import { getAllData, FIREBASE_ENDPOINT } from ".";
-
 // Handle Bookmarks
 export async function handleBookmarks(
   method: string = "GET",

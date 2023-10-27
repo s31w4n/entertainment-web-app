@@ -64,7 +64,6 @@ export interface CardProps {
   year: string;
   rating: string;
   backdrop_path: string;
-  bookmarked: boolean;
   id: number;
 }
 
@@ -98,6 +97,7 @@ export interface BookmarkButtonProps {
   isTrending?: boolean;
   id: number;
   isBookmarking: boolean;
+  isBookmarked: boolean;
   onClick: () => void;
 }
 
@@ -111,7 +111,6 @@ export interface SearchButtonProps {
 export interface DetailsImageProps {
   poster_path: string;
   title: string;
-  bookmarked: boolean;
   id: number;
 }
 

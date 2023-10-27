@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { CardProps as T } from "@/types";
 import { CardImage, CardInfo, BookmarkButton } from ".";
 import Notification from "./Notification";
@@ -10,16 +10,13 @@ const CardNormal: React.FC<T> = ({
   backdrop_path,
   year,
   rating,
-  bookmarked,
   id,
 }) => {
   const { notification, handleNotification } = useNotification();
-  const { isBookmarking, handleBookmark } = useBookmark({
+  const { isBookmarking, isBookmarked, handleBookmark } = useBookmark({
     id,
     handleNotification,
   });
-
-  useEffect(() => {}, []);
 
   return (
     <div className="relative">
@@ -33,6 +30,7 @@ const CardNormal: React.FC<T> = ({
       <BookmarkButton
         id={id}
         isBookmarking={isBookmarking}
+        isBookmarked={isBookmarked}
         onClick={handleBookmark}
       />
       {notification.active && (

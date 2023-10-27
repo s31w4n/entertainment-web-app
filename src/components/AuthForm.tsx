@@ -152,19 +152,20 @@ const AuthForm: React.FC = () => {
       });
 
       if (result && !result.error) {
-        if (session) {
-          dispatch(
-            authActions.login({
-              userId: session.user.userId!,
-              bookmarks: session.user.bookmarks!,
-            }),
-          );
-        }
         router.replace("/");
       }
 
       if (result && result.error) {
         handleLoginErrors(result.error);
+      }
+
+      if (session) {
+        dispatch(
+          authActions.login({
+            userId: session.user.userId!,
+            bookmarks: session.user.bookmarks!,
+          }),
+        );
       }
 
       setFormData((prevState) => ({ ...prevState, isLoading: false }));

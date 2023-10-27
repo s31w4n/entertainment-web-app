@@ -23,7 +23,9 @@ const AuthForm: React.FC = () => {
   });
 
   const { data: session } = useSession();
-  console.log("log session", session);
+  if (session) {
+    console.log("log session", session);
+  }
 
   const dispatch = useAppDispatch();
   const isLoginMode = useAppSelector((state) => state.auth.isLoginMode);

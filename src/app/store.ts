@@ -3,7 +3,7 @@ import authReducer from "@/features/auth/authSlice";
 import messageReducer from "@/features/message/messageSlice";
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
-import storage from '@/lib/storage'
+import storage from "redux-persist/lib/storage";
 import {
   FLUSH,
   PAUSE,
@@ -21,7 +21,7 @@ const reducers = combineReducers({
 const persistConfig = {
   key: "root",
   storage,
-  whiteList: ["auth"],
+  whitelist: ["auth"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

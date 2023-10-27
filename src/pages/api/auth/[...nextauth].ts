@@ -28,21 +28,38 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Credentials not provided");
         }
 
-        const authResponse = await fetch("/api/auth/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(credentials),
-        });
+        const client = await connectToDatabase();
+        const userCollection = client
+          .db("entertainment-web-app")
+          .collection("users");
+        const user = await userCollection.findOne({ email: credentials.email });
 
-        if (!authResponse.ok) {
-          return null;
+        if (!user) {
+          client.close();
+          throw new Error("User not found");
         }
 
-        const user = await authResponse.json();
+        if (credentials.password.trim().length === 0) {
+          client.close();
+          throw new Error("Can't be empty");
+        }
 
-        return user;
+        const isValid = await verifyPassword(
+          credentials.password,
+          user.password,
+        );
+
+        if (!isValid) {
+          client.close();
+          throw new Error("Wrong password");
+        }
+
+        client.close();
+        return {
+          email: user.email,
+          id: user._id.toString(),
+          bookmarks: user.bookmarks,
+        };
       },
     }),
   ],

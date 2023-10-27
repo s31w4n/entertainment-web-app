@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { BookmarkButtonProps as T } from "@/types";
 import { BookmarkEmpty, BookmarkFull } from "@/assets/icons";
 import Loading from "./Loading";
@@ -6,10 +6,9 @@ import Loading from "./Loading";
 const BookmarkButton: React.FC<T> = ({
   isTrending,
   isBookmarking,
+  isBookmarked,
   onClick,
 }) => {
-  const [isBookmarked, setIsBookmarked] = useState(false);
-
   return (
     <button
       className={

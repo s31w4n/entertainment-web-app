@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import AuthInput from "./AuthInput";
 import AuthButton from "./AuthButton";
 import { signIn } from "next-auth/react";
-import { useNotification, useHttp } from "@/hooks";
+import { useNotification } from "@/hooks";
 import Notification from "./Notification";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { authActions } from "@/features/auth/authSlice";
@@ -23,7 +23,6 @@ const AuthForm: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const isLoginMode = useAppSelector((state) => state.auth.isLoginMode);
-  const { sendRequest } = useHttp();
 
   function handleEmail(value: string) {
     setFormData((prevState) => ({ ...prevState, email: value }));
@@ -111,13 +110,12 @@ const AuthForm: React.FC = () => {
   }
 
   async function createUser(email: string, password: string) {
-    const response = await sendRequest({
-      url: "/api/auth/sign-up",
+    const response = await fetch("/api/auth/sign-up", {
       method: "POST",
+      body: JSON.stringify({ email, password }),
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password }),
     });
 
     const data = await response.json();

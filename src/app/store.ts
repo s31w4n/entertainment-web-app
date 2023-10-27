@@ -3,7 +3,7 @@ import authReducer from "@/features/auth/authSlice";
 import messageReducer from "@/features/message/messageSlice";
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+import storage from '@/lib/storage'
 import {
   FLUSH,
   PAUSE,

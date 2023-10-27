@@ -21,6 +21,8 @@ const Home: NextPage<T> = ({ trending, recommended, session }) => {
   const { searchQuery, setSearchQuery, isLoading, debouncedSearchQuery } =
     useSearch();
 
+  console.log(session);
+
   const allData = trending.concat(recommended);
   const searchResult = getSearchResult(searchQuery, allData);
   const title = getTitle(searchQuery, searchResult);
@@ -55,14 +57,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const trending = await getTrending();
   // Get Recommended Media
   const recommended = await getRecommended();
-    // Get Session
-    const session = await getSession({ req: context.req });
+  // Get Session
+  const session = await getSession({ req: context.req });
 
   return {
     props: {
       trending,
       recommended,
-      session
+      session,
     },
   };
 }

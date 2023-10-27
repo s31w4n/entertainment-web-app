@@ -11,14 +11,14 @@ let persistor = persistStore(store);
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <SessionProvider session={pageProps.session}>
+    <SessionProvider session={pageProps.session}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
           <Layout>
             <Component {...pageProps} />
           </Layout>
-        </SessionProvider>
-      </PersistGate>
-    </Provider>
+        </PersistGate>
+      </Provider>
+    </SessionProvider>
   );
 }

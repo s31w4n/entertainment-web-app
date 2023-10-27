@@ -42,7 +42,7 @@ const authSlice = createSlice({
     ) {
       const { id, operation } = action.payload;
       if (operation === "remove") {
-        state.bookmarks === state.bookmarks.filter((itemId) => itemId !== id);
+        state.bookmarks = state.bookmarks.filter((itemId) => itemId !== id);
       } else {
         state.bookmarks.push(id);
       }

@@ -3,6 +3,7 @@ import { handleBookmarks } from "@/utils/handleBookmarks";
 import { useBookmarkProps as T } from "@/types";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { authActions } from "@/features/auth/authSlice";
+import { useSession } from "next-auth/react";
 
 function useBookmark({ id, handleNotification }: T) {
   const [isBookmarking, setIsBookmarking] = useState(false);
@@ -10,8 +11,16 @@ function useBookmark({ id, handleNotification }: T) {
   const dispatch = useAppDispatch();
   const isBookmarked = bookmarks.includes(id);
   const operation = isBookmarked ? "remove" : "add";
+  const { data: session } = useSession();
 
   const handleBookmark = async () => {
+    if (!session) {
+      handleNotification({
+        message: "Please login to bookmark",
+        status: "false",
+      });
+    }
+
     setIsBookmarking(true);
     const userBookmarks = await handleBookmarks();
 

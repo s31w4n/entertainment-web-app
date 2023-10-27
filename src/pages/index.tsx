@@ -1,7 +1,6 @@
 import React from "react";
+import type { NextPage } from "next";
 import { HomePageProps as T } from "@/types";
-import { getSession } from "next-auth/react";
-import { GetServerSidePropsContext } from "next";
 import {
   getTrending,
   getRecommended,
@@ -16,7 +15,7 @@ import {
   Loading,
 } from "@/components";
 
-const Home: React.FC<T> = ({ trending, recommended }) => {
+const Home: NextPage<T> = ({ trending, recommended }) => {
   const { searchQuery, setSearchQuery, isLoading, debouncedSearchQuery } =
     useSearch();
 
@@ -49,9 +48,7 @@ const Home: React.FC<T> = ({ trending, recommended }) => {
 
 export default Home;
 
-export async function getStaticProps(context: GetServerSidePropsContext) {
-  // Get Session
-  const session = await getSession({ req: context.req });
+export async function getServerSideProps() {
   // Get Trending Media
   const trending = await getTrending();
   // Get Recommended Media
@@ -59,10 +56,8 @@ export async function getStaticProps(context: GetServerSidePropsContext) {
 
   return {
     props: {
-      session,
       trending,
       recommended,
     },
-    revalidate: 60, // Revalidate (rebuild) the page every 60 seconds (adjust as needed)
   };
 }

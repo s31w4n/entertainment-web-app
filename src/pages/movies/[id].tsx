@@ -1,4 +1,5 @@
 import React from "react";
+import type { NextPage } from "next";
 import { getMediaDetails } from "@/utils";
 import { DetailsPageProps as T } from "@/types";
 import { GetServerSidePropsContext } from "next";
@@ -12,7 +13,7 @@ import {
   DetailsGenres,
 } from "@/components";
 
-const MoviesDetails: React.FC<T> = ({ data }) => {
+const MoviesDetails: NextPage<T> = ({ data }) => {
   const {
     poster_path,
     title,

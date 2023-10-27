@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import type { NextPage } from "next";
 import { SearchBar, CollectionNormal, Loading } from "@/components";
 import { getAllData, getBookmarks, getSearchResult, getTitle } from "@/utils";
 import { BookmarkPageProps as T, Media } from "@/types";
@@ -8,7 +9,7 @@ import { getSession } from "next-auth/react";
 import { GetServerSidePropsContext } from "next";
 import { handleBookmarks } from "@/utils/handleBookmarks";
 
-const Bookmark: React.FC<T> = ({ session, allData }) => {
+const Bookmark: NextPage<T> = ({ session, allData }) => {
   const [bookmarks, setBookmarks] = useState<Media[]>([]);
   const [loading, setLoading] = useState(false);
 

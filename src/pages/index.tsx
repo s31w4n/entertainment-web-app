@@ -24,16 +24,14 @@ const Home: NextPage<T> = ({ trending, recommended, session }) => {
   const { searchQuery, setSearchQuery, isLoading, debouncedSearchQuery } =
     useSearch();
 
-  useEffect(() => {
-    if (session) {
-      dispatch(
-        authActions.login({
-          userId: session.user.userId!,
-          bookmarks: session.user.bookmarks!,
-        }),
-      );
-    }
-  }, []);
+  if (session) {
+    dispatch(
+      authActions.login({
+        userId: session.user.userId!,
+        bookmarks: session.user.bookmarks!,
+      }),
+    );
+  }
 
   const allData = trending.concat(recommended);
   const searchResult = getSearchResult(searchQuery, allData);

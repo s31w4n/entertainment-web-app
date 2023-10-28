@@ -5,6 +5,7 @@ import { GetServerSidePropsContext } from "next";
 import { getSession } from "next-auth/react";
 import { useAppDispatch } from "@/app/hooks";
 import { authActions } from "@/features/auth/authSlice";
+import { useSession } from "next-auth/react";
 import {
   getTrending,
   getRecommended,
@@ -19,10 +20,11 @@ import {
   Loading,
 } from "@/components";
 
-const Home: NextPage<T> = ({ trending, recommended, session }) => {
+const Home: NextPage<T> = ({ trending, recommended }) => {
   const dispatch = useAppDispatch();
   const { searchQuery, setSearchQuery, isLoading, debouncedSearchQuery } =
     useSearch();
+  const { data: session } = useSession();
 
   if (session) {
     dispatch(

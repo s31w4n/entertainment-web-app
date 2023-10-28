@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import type { NextPage } from "next";
 import { HomePageProps as T } from "@/types";
 import { GetServerSidePropsContext } from "next";
 import { getSession } from "next-auth/react";
+import { useAppDispatch } from "@/app/hooks";
+import { authActions } from "@/features/auth/authSlice";
 import {
   getTrending,
   getRecommended,
@@ -18,10 +20,20 @@ import {
 } from "@/components";
 
 const Home: NextPage<T> = ({ trending, recommended, session }) => {
+  const dispatch = useAppDispatch();
   const { searchQuery, setSearchQuery, isLoading, debouncedSearchQuery } =
     useSearch();
 
-  console.log(session);
+  useEffect(() => {
+    if (session) {
+      dispatch(
+        authActions.login({
+          userId: session.user.userId!,
+          bookmarks: session.user.bookmarks!,
+        }),
+      );
+    }
+  }, []);
 
   const allData = trending.concat(recommended);
   const searchResult = getSearchResult(searchQuery, allData);

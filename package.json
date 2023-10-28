@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^1.8.1",
+    "@reduxjs/toolkit": "^1.9.7",
     "@types/bcryptjs": "^2.4.4",
     "@types/jsonwebtoken": "^9.0.4",
     "@types/node": "20.5.1",

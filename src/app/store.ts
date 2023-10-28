@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "@/features/auth/authSlice";
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
-import storage from '@/lib/storage'
+import storage from "redux-persist/lib/storage";
 import {
   FLUSH,
   PAUSE,

@@ -7,7 +7,6 @@ import { useNotification } from "@/hooks";
 import Notification from "./Notification";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { authActions } from "@/features/auth/authSlice";
-import { useSession } from "next-auth/react";
 
 const AuthForm: React.FC = () => {
   const { notification, handleNotification } = useNotification();
@@ -24,8 +23,6 @@ const AuthForm: React.FC = () => {
 
   const dispatch = useAppDispatch();
   const isLoginMode = useAppSelector((state) => state.auth.isLoginMode);
-
-  const { data: session } = useSession();
 
   function handleEmail(value: string) {
     setFormData((prevState) => ({ ...prevState, email: value }));
@@ -149,15 +146,6 @@ const AuthForm: React.FC = () => {
       });
 
       if (result && !result.error) {
-        if (session) {
-          dispatch(
-            authActions.login({
-              userId: session.user.userId!,
-              bookmarks: session.user.bookmarks!,
-            }),
-          );
-        }
-
         router.replace("/");
       }
 

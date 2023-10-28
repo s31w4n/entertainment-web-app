@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import type { NextPage } from "next";
 import { HomePageProps as T } from "@/types";
 import { GetServerSidePropsContext } from "next";
@@ -24,16 +24,6 @@ const Home: NextPage<T> = ({ trending, recommended }) => {
   const dispatch = useAppDispatch();
   const { searchQuery, setSearchQuery, isLoading, debouncedSearchQuery } =
     useSearch();
-  const { data: session } = useSession();
-
-  if (session) {
-    dispatch(
-      authActions.login({
-        userId: session.user.userId!,
-        bookmarks: session.user.bookmarks!,
-      }),
-    );
-  }
 
   const allData = trending.concat(recommended);
   const searchResult = getSearchResult(searchQuery, allData);

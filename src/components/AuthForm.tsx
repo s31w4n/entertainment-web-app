@@ -187,7 +187,14 @@ const AuthForm: React.FC = () => {
     }
   };
 
-  console.log("all", session);
+  if (status === "authenticated") {
+    dispatch(
+      authActions.login({
+        userId: session.user.userId!,
+        bookmarks: session.user.bookmarks!,
+      }),
+    );
+  }
 
   return (
     <form className="flex flex-col gap-6" onSubmit={submitHandler}>

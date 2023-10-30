@@ -187,6 +187,8 @@ const AuthForm: React.FC = () => {
     }
   };
 
+  console.log("all", session);
+
   return (
     <form className="flex flex-col gap-6" onSubmit={submitHandler}>
       <AuthInput

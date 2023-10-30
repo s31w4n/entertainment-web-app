@@ -148,6 +148,10 @@ const AuthForm: React.FC = () => {
         password,
       });
 
+      if (result && result.error) {
+        handleLoginErrors(result.error);
+      }
+
       if (result && !result.error) {
         if (status === "authenticated") {
           console.log("userId: ", session.user.userId);
@@ -159,14 +163,10 @@ const AuthForm: React.FC = () => {
               bookmarks: session?.user.bookmarks!,
             }),
           );
+          router.replace("/");
         }
-        router.replace("/");
+        setFormData((prevState) => ({ ...prevState, isLoading: false }));
       }
-
-      if (result && result.error) {
-        handleLoginErrors(result.error);
-      }
-
       setFormData((prevState) => ({ ...prevState, isLoading: false }));
     } else {
       // User Sign up

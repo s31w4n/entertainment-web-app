@@ -148,25 +148,22 @@ const AuthForm: React.FC = () => {
         password,
       });
 
+      if (result && !result.error && status === "authenticated") {
+        dispatch(
+          authActions.login({
+            userId: session?.user.userId!,
+            bookmarks: session?.user.bookmarks!,
+          }),
+        );
+
+        router.replace("/");
+        setFormData((prevState) => ({ ...prevState, isLoading: false }));
+      }
+
       if (result && result.error) {
         handleLoginErrors(result.error);
       }
 
-      if (result && !result.error) {
-        if (status === "authenticated") {
-          console.log("userId: ", session.user.userId);
-          console.log("bookmarks: ", session.user.bookmarks);
-
-          dispatch(
-            authActions.login({
-              userId: session?.user.userId!,
-              bookmarks: session?.user.bookmarks!,
-            }),
-          );
-          router.replace("/");
-        }
-        setFormData((prevState) => ({ ...prevState, isLoading: false }));
-      }
       setFormData((prevState) => ({ ...prevState, isLoading: false }));
     } else {
       // User Sign up

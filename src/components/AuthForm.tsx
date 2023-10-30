@@ -141,29 +141,22 @@ const AuthForm: React.FC = () => {
 
     // User Login
     if (isLoginMode) {
-      try {
-        setFormData((prevState) => ({ ...prevState, isLoading: true }));
-        const result = await signIn("credentials", {
-          redirect: false,
-          email,
-          password,
-        });
+      setFormData((prevState) => ({ ...prevState, isLoading: true }));
+      const result = await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
+      });
 
-        if (result && !result.error && status === "authenticated") {
-          await dispatch(
-            authActions.login({
-              userId: session?.user.userId!,
-              bookmarks: session?.user.bookmarks!,
-            }),
-          );
-
-          router.replace("/");
-        } else if (result && result.error) {
-          handleLoginErrors(result.error);
-        }
-      } finally {
-        setFormData((prevState) => ({ ...prevState, isLoading: false }));
+      if (result && !result.error) {
+        router.replace("/");
       }
+
+      if (result && result.error) {
+        handleLoginErrors(result.error);
+      }
+
+      setFormData((prevState) => ({ ...prevState, isLoading: false }));
     } else {
       // User Sign up
       if (!comparePasswords()) {

@@ -150,14 +150,14 @@ const AuthForm: React.FC = () => {
 
       if (result && !result.error) {
         router.replace("/");
-        if (status === "authenticated") {
-          dispatch(
-            authActions.login({
-              userId: session?.user.userId!,
-              bookmarks: session?.user.bookmarks!,
-            }),
-          );
-        }
+      }
+      if (status === "authenticated") {
+        dispatch(
+          authActions.login({
+            userId: session?.user.userId!,
+            bookmarks: session?.user.bookmarks!,
+          }),
+        );
       }
 
       if (result && result.error) {

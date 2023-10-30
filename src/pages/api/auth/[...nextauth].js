@@ -59,7 +59,8 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user, session }) {
+    async jwt({ token, user }) {
+      // pass in userId and user bookmarks to token
       if (user) {
         return {
           ...token,
@@ -69,7 +70,8 @@ export const authOptions = {
       }
       return token;
     },
-    async session({ session, token, user }) {
+    async session({ session, token }) {
+      // pass in userId and user bookmarks to session
       return {
         ...session,
         user: {

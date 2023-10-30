@@ -149,17 +149,17 @@ const AuthForm: React.FC = () => {
       });
 
       if (result && !result.error) {
-        router.replace("/");
         if (status === "authenticated") {
-          console.log('userId: ', session.user.userId);
-          console.log('bookmarks: ', session.user.bookmarks);
-          
+          console.log("userId: ", session.user.userId);
+          console.log("bookmarks: ", session.user.bookmarks);
+
           dispatch(
             authActions.login({
               userId: session?.user.userId!,
               bookmarks: session?.user.bookmarks!,
             }),
           );
+          router.replace("/");
         }
       }
 

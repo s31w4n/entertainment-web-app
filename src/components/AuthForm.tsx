@@ -159,8 +159,8 @@ const AuthForm: React.FC = () => {
               bookmarks: session?.user.bookmarks!,
             }),
           );
-          router.replace("/");
         }
+        router.replace("/");
       }
 
       if (result && result.error) {

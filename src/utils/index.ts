@@ -72,12 +72,3 @@ export function getTitle(searchQuery: string, searchResult: Media[]) {
   }
   return title;
 }
-
-// Convert Data (userId to string)
-const convertData = (doc: any) => {
-  const convertedData = doc.toObject();
-  convertedData._id = convertedData._id.toString();
-  return convertedData;
-};
-
-export default convertData;

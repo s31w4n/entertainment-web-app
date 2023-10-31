@@ -87,7 +87,7 @@ const Navigation: React.FC = () => {
             width={24}
             height={24}
             className="cursor-pointer p-px sm:h-8 sm:w-8 lg:h-10 lg:w-10"
-            unoptimized={true}
+            unoptimized
           />
         </Link>
       </div>

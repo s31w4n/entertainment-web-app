@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { CardImageProps as T } from "@/types";
 import Image from "next/image";
 import CardHover from "./CardHover";
+import { toBase64, shimmer } from "@/lib/shimmer";
 
 const CardImage: React.FC<T> = ({
   isTrending,
@@ -34,11 +35,13 @@ const CardImage: React.FC<T> = ({
         <Image
           className="w-full rounded-lg object-cover"
           src={`${process.env.TMDB_IMAGE_ENDPOINT}/${backdrop_path}`}
-          blurDataURL="data:image/svg+xml;"
+          blurDataURL={`data:image/svg+xml;base64,${toBase64(
+            shimmer(470, 230),
+          )}`}
           placeholder="blur"
           alt={alt}
           fill
-          unoptimized
+          sizes="(max-width: 768px) 50vw"
         />
         <CardHover hover={isHovering} id={id} category={category} />
       </div>

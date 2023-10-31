@@ -12,6 +12,7 @@ const nextConfig = {
     MONGODB_CLUSTERNAME: process.env.MONGODB_CLUSTERNAME,
   },
   images: {
+    formats: ["image/avif", "image/webp"],
     domains: ["source.unsplash.com", "image.tmdb.org"],
   },
 };

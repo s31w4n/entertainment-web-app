@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { store } from "@/app/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
-import SessionProvider from "@/SessionProvider";
+import SessionProvider from "@/context/SessionProvider";
 
 let persistor = persistStore(store);
 

@@ -20,7 +20,7 @@ const Profile: NextPage<T> = ({ session }) => {
 
   return (
     <section className="mt-10 sm:mt-16">
-      <Heading title={`You are logged in as ${userEmail}.`} />
+      <Heading title={`You are logged in as '${userEmail}'.`} />
       <Heading title="You can change your password below." />
       <div className="mt-[80px] flex justify-center sm:mt-[50px] lg:mt-[119px]">
         <div className="relative h-auto w-[327px] rounded-lg bg-app-semi-dark-blue p-6 sm:w-[400px] sm:p-8">

@@ -148,13 +148,9 @@ const AuthForm: React.FC = () => {
         password,
       });
 
-      console.log("before", session);
-
       if (result && !result.error) {
         router.replace("/");
       }
-
-      console.log("after", session);
 
       if (result && result.error) {
         handleLoginErrors(result.error);

@@ -8,30 +8,13 @@ import { useSearch } from "@/hooks";
 import { getSession } from "next-auth/react";
 import { GetServerSidePropsContext } from "next";
 import { handleBookmarks } from "@/utils/handleBookmarks";
+import { useAppSelector } from "@/app/hooks";
 
 const Bookmark: NextPage<T> = ({ session, allData }) => {
-  const [bookmarks, setBookmarks] = useState<Media[]>([]);
-  const [loading, setLoading] = useState(false);
+  const { bookmarks: userBookmarks } = useAppSelector((state) => state.auth);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (session) {
-        setLoading(true);
-        const userBookmarks = await handleBookmarks();
-        console.log(userBookmarks);
-        const data = allData;
-        const bookmarksData = data.filter((item) =>
-          userBookmarks.includes(item.id),
-        );
-        setBookmarks(bookmarksData);
-        setLoading(false);
-      } else {
-        setBookmarks([]);
-      }
-    };
-
-    fetchData();
-  }, [setBookmarks]);
+  const data = allData;
+  const bookmarks = data.filter((item) => userBookmarks.includes(item.id));
 
   const bookmarkMovies = bookmarks.filter((item) => item.category === "Movie");
   const bookmarkSeries = bookmarks.filter(
@@ -44,18 +27,18 @@ const Bookmark: NextPage<T> = ({ session, allData }) => {
   const searchResult = getSearchResult(searchQuery, bookmarks);
   const title = getTitle(searchQuery, searchResult);
 
-  if (loading) {
-    return (
-      <>
-        <SearchBar
-          placeholder="Search for bookmarked shows"
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
-        <Loading />
-      </>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <>
+  //       <SearchBar
+  //         placeholder="Search for bookmarked shows"
+  //         searchQuery={searchQuery}
+  //         setSearchQuery={setSearchQuery}
+  //       />
+  //       <Loading />
+  //     </>
+  //   );
+  // }
 
   return (
     <>

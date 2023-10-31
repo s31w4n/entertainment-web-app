@@ -195,7 +195,7 @@ const AuthForm: React.FC = () => {
       <AuthInput
         id="email"
         type="email"
-        placeholder="Email address"
+        placeholder="Email Address"
         content="Your Email"
         value={formData.email}
         error={formData.emailError}

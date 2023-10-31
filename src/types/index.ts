@@ -166,14 +166,6 @@ export interface AuthButtonProps {
   onClick?: () => void;
 }
 
-// Notification Props
-export interface NotificationProps {
-  active?: boolean;
-  field?: string;
-  message: string;
-  status: string;
-}
-
 // Profile Page Props
 export interface ProfilePageProps {
   session: Session;

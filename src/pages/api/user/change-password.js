@@ -55,7 +55,7 @@ async function handler(req, res) {
     return;
   }
 
-  if (user.password === newPassword) {
+  if (currentPassword === newPassword) {
     res
       .status(403)
       .json({ message: "Choose a new password!", field: "newPassword" });

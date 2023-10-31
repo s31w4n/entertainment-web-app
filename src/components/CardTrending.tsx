@@ -1,8 +1,7 @@
 import React from "react";
 import { CardProps as T } from "@/types";
 import { CardImage, CardInfo, BookmarkButton } from ".";
-import Notification from "./Notification";
-import { useBookmark, useNotification } from "@/hooks";
+import { useBookmark } from "@/hooks";
 
 const CardTrending: React.FC<T> = ({
   title,
@@ -12,11 +11,7 @@ const CardTrending: React.FC<T> = ({
   backdrop_path,
   id,
 }) => {
-  const { notification, handleNotification } = useNotification();
-  const { isBookmarking, isBookmarked, handleBookmark } = useBookmark({
-    id,
-    handleNotification,
-  });
+  const { isBookmarking, isBookmarked, handleBookmark } = useBookmark(id);
 
   return (
     <div className="relative cursor-grab active:cursor-grabbing">
@@ -41,12 +36,6 @@ const CardTrending: React.FC<T> = ({
         isBookmarked={isBookmarked}
         onClick={handleBookmark}
       />
-      {notification.active && (
-        <Notification
-          message={notification.message}
-          status={notification.status}
-        />
-      )}{" "}
     </div>
   );
 };

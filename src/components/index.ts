@@ -12,7 +12,6 @@ import Heading from "./Heading";
 import Loading from "./Loading";
 import SearchButton from "./SearchButton";
 import BookmarkButton from "./BookmarkButton";
-import Footer from "./Footer";
 import BackButton from "./BackButton";
 import DetailsImage from "./DetailsImage";
 import DetailsTitle from "./DetailsTitle";
@@ -20,7 +19,6 @@ import DetailsRating from "./DetailsRating";
 import DetailsInfo from "./DetailsInfo";
 import DetailsSynopsis from "./DetailsSynopsis";
 import DetailsGenres from "./DetailsGenres";
-import Notification from "./Notification";
 import AuthButton from "./AuthButton";
 import AuthInput from "./AuthInput";
 import ChangePasswordFrom from "./ChangePasswordFrom";
@@ -40,7 +38,6 @@ export {
   CardHover,
   SearchButton,
   BookmarkButton,
-  Footer,
   DetailsImage,
   BackButton,
   DetailsTitle,
@@ -48,7 +45,6 @@ export {
   DetailsInfo,
   DetailsSynopsis,
   DetailsGenres,
-  Notification,
   AuthButton,
   AuthInput,
   ChangePasswordFrom,

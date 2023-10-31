@@ -174,12 +174,6 @@ export interface NotificationProps {
   status: string;
 }
 
-// useBookmark Props
-export interface useBookmarkProps {
-  id: number;
-  handleNotification: (result: NotificationProps) => void;
-}
-
 // Profile Page Props
 export interface ProfilePageProps {
   session: Session;

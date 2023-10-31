@@ -1,16 +1,12 @@
 import React from "react";
 import Image from "next/image";
-import { BookmarkButton, Notification } from "@/components";
+import { BookmarkButton } from "@/components";
 import { DetailsImageProps as T } from "@/types";
-import { useBookmark, useNotification } from "@/hooks";
+import { useBookmark } from "@/hooks";
 import { toBase64, shimmer } from "@/lib/shimmer";
 
 const DetailsImage: React.FC<T> = ({ id, poster_path, title }) => {
-  const { notification, handleNotification } = useNotification();
-  const { isBookmarking, isBookmarked, handleBookmark } = useBookmark({
-    id,
-    handleNotification,
-  });
+  const { isBookmarking, isBookmarked, handleBookmark } = useBookmark(id);
 
   return (
     <div className="relative h-[525px] w-[350px]">
@@ -30,12 +26,6 @@ const DetailsImage: React.FC<T> = ({ id, poster_path, title }) => {
         isBookmarked={isBookmarked}
         onClick={handleBookmark}
       />
-      {notification.active && (
-        <Notification
-          message={notification.message}
-          status={notification.status}
-        />
-      )}
     </div>
   );
 };

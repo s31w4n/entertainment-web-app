@@ -3,14 +3,12 @@ import { useRouter } from "next/router";
 import AuthInput from "./AuthInput";
 import AuthButton from "./AuthButton";
 import { signIn } from "next-auth/react";
-import { useNotification } from "@/hooks";
-import Notification from "./Notification";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { authActions } from "@/features/auth/authSlice";
 import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
 
 const AuthForm: React.FC = () => {
-  const { notification, handleNotification } = useNotification();
   const router = useRouter();
   const [formData, setFormData] = useState({
     email: "",
@@ -176,7 +174,7 @@ const AuthForm: React.FC = () => {
       }
 
       if (result.status === "success") {
-        handleNotification(result);
+        toast.success(result, { style: { background: "#5a6a90" } });
       }
 
       setFormData((prevState) => ({ ...prevState, isLoading: false }));
@@ -239,12 +237,6 @@ const AuthForm: React.FC = () => {
           {isLoginMode ? "Sign Up" : "Login"}
         </button>
       </div>
-      {notification.active && (
-        <Notification
-          message={notification.message}
-          status={notification.status}
-        />
-      )}
     </form>
   );
 };

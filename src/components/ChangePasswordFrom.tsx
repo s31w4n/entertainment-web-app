@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { NotificationProps as T } from "@/types";
-import { AuthButton, AuthInput, Notification } from "@/components";
-import { useNotification } from "@/hooks";
+import { AuthButton, AuthInput } from "@/components";
+import toast from "react-hot-toast";
 
 const ChangePasswordFrom: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { notification, handleNotification } = useNotification();
   const [formData, setFormData] = useState({
     currentPassword: "",
     newPassword: "",
@@ -25,7 +23,7 @@ const ChangePasswordFrom: React.FC = () => {
     newPassword: "",
   });
 
-  function handleChangePasswordErrors(error: T) {
+  function handleChangePasswordErrors(error: any) {
     if (error.field === "currentPassword") {
       setChangePasswordError((prevState) => ({
         ...prevState,
@@ -55,7 +53,7 @@ const ChangePasswordFrom: React.FC = () => {
     }
   }
 
-  function clearInputs(result: T) {
+  function clearInputs(result: any) {
     if (result.status === "success") {
       setFormData((prevState) => ({
         ...prevState,
@@ -63,7 +61,7 @@ const ChangePasswordFrom: React.FC = () => {
         currentPassword: "",
         passwordChanged: false,
       }));
-      handleNotification(result);
+      toast.success(result);
     }
   }
 
@@ -106,18 +104,12 @@ const ChangePasswordFrom: React.FC = () => {
         id="New password"
         type="password"
         placeholder="New password"
-        content="New password"
+        content="New Password"
         value={formData.newPassword}
         error={changePasswordError.newPassword}
         onChange={handleNewPassword}
       />
       <AuthButton isLoading={isLoading} text="Change password" />
-      {notification.active && (
-        <Notification
-          message={notification.message}
-          status={notification.status}
-        />
-      )}
     </form>
   );
 };

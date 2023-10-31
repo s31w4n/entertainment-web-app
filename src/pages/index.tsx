@@ -1,11 +1,6 @@
 import React from "react";
 import type { NextPage } from "next";
 import { HomePageProps as T } from "@/types";
-import { GetServerSidePropsContext } from "next";
-import { getSession } from "next-auth/react";
-import { useAppDispatch } from "@/app/hooks";
-import { authActions } from "@/features/auth/authSlice";
-import { useSession } from "next-auth/react";
 import {
   getTrending,
   getRecommended,
@@ -21,7 +16,6 @@ import {
 } from "@/components";
 
 const Home: NextPage<T> = ({ trending, recommended }) => {
-  const dispatch = useAppDispatch();
   const { searchQuery, setSearchQuery, isLoading, debouncedSearchQuery } =
     useSearch();
 
@@ -54,19 +48,16 @@ const Home: NextPage<T> = ({ trending, recommended }) => {
 
 export default Home;
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
+export async function getServerSideProps() {
   // Get Trending Media
   const trending = await getTrending();
   // Get Recommended Media
   const recommended = await getRecommended();
-  // Get Session
-  const session = await getSession({ req: context.req });
 
   return {
     props: {
       trending,
       recommended,
-      session,
     },
   };
 }

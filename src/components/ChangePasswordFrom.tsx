@@ -96,7 +96,7 @@ const ChangePasswordFrom: React.FC = () => {
       <AuthInput
         id="password"
         type="password"
-        placeholder="Password"
+        placeholder="Current Password"
         content="Your Password"
         value={formData.currentPassword}
         error={changePasswordError.currentPassword}
@@ -106,7 +106,7 @@ const ChangePasswordFrom: React.FC = () => {
         id="Repeat password"
         type="password"
         placeholder="Repeat password"
-        content="Repeat password"
+        content="New password"
         value={formData.newPassword}
         error={changePasswordError.newPassword}
         onChange={handleNewPassword}

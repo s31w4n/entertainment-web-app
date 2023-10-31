@@ -42,15 +42,7 @@ async function handler(req, res) {
   }
 
   if (newPassword.trim().length === 0) {
-    res
-      .status(403)
-      .json({ message: `New password can't be empty`, field: "newPassword" });
-    client.close();
-    return;
-  }
-
-  if (passwordsAreEqual) {
-    res.status(403).json({ message: "Are you sure? :)", status: "success" });
+    res.status(403).json({ message: `Can't be empty`, field: "newPassword" });
     client.close();
     return;
   }
@@ -59,6 +51,14 @@ async function handler(req, res) {
     res
       .status(403)
       .json({ message: "Minimum 8 characters long", field: "newPassword" });
+    client.close();
+    return;
+  }
+
+  if (user.password === newPassword) {
+    res
+      .status(403)
+      .json({ message: "Choose a new password!", field: "newPassword" });
     client.close();
     return;
   }

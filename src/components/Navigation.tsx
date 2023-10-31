@@ -80,7 +80,7 @@ const Navigation: React.FC = () => {
       </ul>
       <div className="hidden h-40 lg:block"></div>
       <div className="rounded-full bg-app-white">
-        <Link href={`${userId} ? "/profile" : "/auth"`}>
+        <Link href={`${userId}` ? "/profile" : "/auth"}>
           <Image
             src={avatar}
             alt="user avatar"

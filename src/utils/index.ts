@@ -45,14 +45,6 @@ export async function getSeries() {
   return series;
 }
 
-// Get Bookmarks
-export async function getBookmarks() {
-  const data = await getAllData();
-  const bookmarks = data.filter((item) => item.isBookmarked === true);
-
-  return bookmarks;
-}
-
 // Get Media Details By ID
 export async function getMediaDetails(id: number) {
   const data = await getAllData();

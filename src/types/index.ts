@@ -1,5 +1,4 @@
 import { Session } from "next-auth";
-
 // Media Type
 export interface Media {
   id: number;
@@ -17,7 +16,6 @@ export interface Media {
   rating: string;
   vote_average: number;
   isTrending: boolean;
-  isBookmarked: boolean;
 }
 
 // Home Page Props
@@ -38,7 +36,6 @@ export interface SeriesPageProps {
 }
 
 export interface BookmarkPageProps {
-  session: Session;
   allData: Media[];
 }
 
@@ -181,4 +178,9 @@ export interface NotificationProps {
 export interface useBookmarkProps {
   id: number;
   handleNotification: (result: NotificationProps) => void;
+}
+
+// Profile Page Props
+export interface ProfilePageProps {
+  session: Session;
 }

@@ -49,7 +49,7 @@ async function handler(req, res) {
     return;
   }
 
-  if (currentPassword === newPassword) {
+  if (passwordsAreEqual) {
     res.status(403).json({ message: "Are you sure? :)", status: "success" });
     client.close();
     return;

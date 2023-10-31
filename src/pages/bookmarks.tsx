@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import type { NextPage } from "next";
-import { SearchBar, CollectionNormal, Loading } from "@/components";
+import { BookmarkPageProps as T } from "@/types";
 import { getAllData, getSearchResult, getTitle } from "@/utils";
-import { BookmarkPageProps as T, Media } from "@/types";
+import { SearchBar, CollectionNormal, Loading } from "@/components";
 import { BookmarkIcon } from "@/assets/bookmark";
 import { useSearch } from "@/hooks";
-import { getSession } from "next-auth/react";
-import { GetServerSidePropsContext } from "next";
-import { handleBookmarks } from "@/utils/handleBookmarks";
 import { useAppSelector } from "@/app/hooks";
 
-const Bookmark: NextPage<T> = ({ session, allData }) => {
+const Bookmark: NextPage<T> = ({ allData }) => {
   const { bookmarks: userBookmarks } = useAppSelector((state) => state.auth);
 
   const data = allData;
@@ -26,19 +23,6 @@ const Bookmark: NextPage<T> = ({ session, allData }) => {
 
   const searchResult = getSearchResult(searchQuery, bookmarks);
   const title = getTitle(searchQuery, searchResult);
-
-  // if (loading) {
-  //   return (
-  //     <>
-  //       <SearchBar
-  //         placeholder="Search for bookmarked shows"
-  //         searchQuery={searchQuery}
-  //         setSearchQuery={setSearchQuery}
-  //       />
-  //       <Loading />
-  //     </>
-  //   );
-  // }
 
   return (
     <>
@@ -77,15 +61,12 @@ const Bookmark: NextPage<T> = ({ session, allData }) => {
 
 export default Bookmark;
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  // Get Session
-  const session = await getSession({ req: context.req });
+export async function getServerSideProps() {
   // Get All Data
   const allData = await getAllData();
 
   return {
     props: {
-      session,
       allData,
     },
   };

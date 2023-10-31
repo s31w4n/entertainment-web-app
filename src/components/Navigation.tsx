@@ -10,10 +10,12 @@ import {
   SeriesIcon,
   BookmarkIcon,
 } from "@/assets/icons";
+import { useAppSelector } from "@/app/hooks";
 
 const Navigation: React.FC = () => {
   const router = useRouter();
   const currentPath = router.pathname;
+  const userId = useAppSelector((state) => state.auth.userId);
 
   return (
     <nav className="h-calc sticky top-0 z-10 flex items-center justify-between bg-app-semi-dark-blue p-4 sm:mx-4 sm:mt-6 sm:rounded-[10px] md:mx-6 lg:fixed lg:left-0 lg:mx-8 lg:mr-0 lg:mt-8 lg:flex-col lg:px-7 lg:py-9">
@@ -78,7 +80,7 @@ const Navigation: React.FC = () => {
       </ul>
       <div className="hidden h-40 lg:block"></div>
       <div className="rounded-full bg-app-white">
-        <Link href="/auth">
+        <Link href={`${userId} ? "/profile" : "/auth"`}>
           <Image
             src={avatar}
             alt="user avatar"

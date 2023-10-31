@@ -21,6 +21,9 @@ import DetailsInfo from "./DetailsInfo";
 import DetailsSynopsis from "./DetailsSynopsis";
 import DetailsGenres from "./DetailsGenres";
 import Notification from "./Notification";
+import AuthButton from "./AuthButton";
+import AuthInput from "./AuthInput";
+import ChangePasswordFrom from "./ChangePasswordFrom";
 
 export {
   Layout,
@@ -46,4 +49,7 @@ export {
   DetailsSynopsis,
   DetailsGenres,
   Notification,
+  AuthButton,
+  AuthInput,
+  ChangePasswordFrom,
 };

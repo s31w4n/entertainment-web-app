@@ -15,7 +15,7 @@ const Auth: NextPage = () => {
         <Image src={Logo} alt="Logo" width={33} height={27} />
       </Link>
       <div className="relative h-auto w-[327px] rounded-lg bg-app-semi-dark-blue p-6 sm:w-[400px] sm:p-8">
-        <div className="mb-10 flex items-center justify-between">
+        <div className="mb-10">
           <h1 className="text-app-heading-lg font-light">
             {isLoginMode ? "Login" : "Sign up"}
           </h1>

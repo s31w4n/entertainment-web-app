@@ -26,11 +26,11 @@ function useBookmark(id: number) {
     if (userBookmarks.includes(id)) {
       const result = await handleBookmarks("DELETE", id);
       dispatch(authActions.updateBookmarks({ id, operation: operation }));
-      toast.success(result);
+      toast.success(result.message);
     } else {
       const result = await handleBookmarks("POST", id);
       dispatch(authActions.updateBookmarks({ id, operation: operation }));
-      toast.success(result);
+      toast.success(result.message);
     }
     setIsBookmarking(false);
   };

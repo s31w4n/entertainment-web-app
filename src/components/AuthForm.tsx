@@ -174,7 +174,7 @@ const AuthForm: React.FC = () => {
       }
 
       if (result.status === "success") {
-        toast.success(result, { style: { background: "#5a6a90" } });
+        toast.success(result.message);
       }
 
       setFormData((prevState) => ({ ...prevState, isLoading: false }));
@@ -214,7 +214,7 @@ const AuthForm: React.FC = () => {
         <AuthInput
           id="Repeat password"
           type="password"
-          placeholder="Repeat password"
+          placeholder="Repeat Password"
           content="Repeat password"
           value={formData.repeatedPassword}
           error={formData.repeatedPasswordError}

@@ -61,7 +61,7 @@ const ChangePasswordFrom: React.FC = () => {
         currentPassword: "",
         passwordChanged: false,
       }));
-      toast.success(result);
+      toast.success(result.message);
     }
   }
 
@@ -103,7 +103,7 @@ const ChangePasswordFrom: React.FC = () => {
       <AuthInput
         id="New password"
         type="password"
-        placeholder="New password"
+        placeholder="New Password"
         content="New Password"
         value={formData.newPassword}
         error={changePasswordError.newPassword}

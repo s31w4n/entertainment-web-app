@@ -5,7 +5,7 @@ This is a solution to the [Entertainment web app challenge on Frontend Mentor](h
 ### Table of contents
 
 - [Overview](#overview)
-  - [The challenge](#the-challnge)
+  - [The challenge](#the-challenge)
   - [Links](#links)
 - [Process](#process)
   - [Built with](#built-with)

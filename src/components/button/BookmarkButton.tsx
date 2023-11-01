@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { BookmarkButtonProps as T } from "@/types";
 import { BookmarkEmpty, BookmarkFull } from "@/assets/icons";
-import Loading from "./Loading";
+import Loading from "../layout/Loading";
 
 const BookmarkButton: React.FC<T> = ({
   isTrending,

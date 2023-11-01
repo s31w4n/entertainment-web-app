@@ -1,6 +1,6 @@
 import React from "react";
 import { CardHoverProps as T } from "@/types";
-import SearchButton from "./SearchButton";
+import SearchButton from "../button/SearchButton";
 
 const CardHover: React.FC<T> = ({ hover, id, category }) => {
   const hoverClass = hover ? "opacity-100" : "opacity-0";

@@ -2,7 +2,7 @@ import React from "react";
 import type { NextPage } from "next";
 import { Logo } from "@/assets/icons";
 import Image from "next/image";
-import AuthForm from "@/components/AuthForm";
+import AuthForm from "@/components/form/AuthForm";
 import Link from "next/link";
 import { useAppSelector } from "@/app/hooks";
 

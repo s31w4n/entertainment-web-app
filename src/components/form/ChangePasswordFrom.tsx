@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AuthButton, AuthInput } from "@/components";
+import { FormButton, FormInput } from "@/components";
 import toast from "react-hot-toast";
 
 const ChangePasswordFrom: React.FC = () => {
@@ -91,7 +91,7 @@ const ChangePasswordFrom: React.FC = () => {
 
   return (
     <form className="flex flex-col gap-6" onSubmit={submitHandler}>
-      <AuthInput
+      <FormInput
         id="password"
         type="password"
         placeholder="Current Password"
@@ -100,7 +100,7 @@ const ChangePasswordFrom: React.FC = () => {
         error={changePasswordError.currentPassword}
         onChange={handleCurrentPassword}
       />
-      <AuthInput
+      <FormInput
         id="New password"
         type="password"
         placeholder="New Password"
@@ -109,7 +109,7 @@ const ChangePasswordFrom: React.FC = () => {
         error={changePasswordError.newPassword}
         onChange={handleNewPassword}
       />
-      <AuthButton isLoading={isLoading} text="Change password" />
+      <FormButton isLoading={isLoading} text="Change password" />
     </form>
   );
 };

@@ -4,7 +4,7 @@ import type { NextPage, GetServerSidePropsContext } from "next";
 import { getSession, signOut } from "next-auth/react";
 import { useAppDispatch } from "@/app/hooks";
 import { authActions } from "@/features/auth/authSlice";
-import { Heading, ChangePasswordFrom, AuthButton } from "@/components";
+import { Heading, ChangePasswordFrom, FormButton } from "@/components";
 
 const Profile: NextPage<T> = ({ session }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +28,7 @@ const Profile: NextPage<T> = ({ session }) => {
             <h1 className="text-app-heading-lg font-light">Change password</h1>
           </div>
           <ChangePasswordFrom />
-          <AuthButton
+          <FormButton
             isLoading={isLoading}
             text="Logout"
             onClick={logoutHandler}

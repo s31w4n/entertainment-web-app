@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import AuthInput from "./AuthInput";
-import AuthButton from "./AuthButton";
+import { FormInput, FormButton } from "..";
 import { signIn } from "next-auth/react";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { authActions } from "@/features/auth/authSlice";
@@ -192,7 +191,7 @@ const AuthForm: React.FC = () => {
 
   return (
     <form className="flex flex-col gap-6" onSubmit={submitHandler}>
-      <AuthInput
+      <FormInput
         id="email"
         type="email"
         placeholder="Email Address"
@@ -201,7 +200,7 @@ const AuthForm: React.FC = () => {
         error={formData.emailError}
         onChange={handleEmail}
       />
-      <AuthInput
+      <FormInput
         id="password"
         type="password"
         placeholder="Password"
@@ -211,7 +210,7 @@ const AuthForm: React.FC = () => {
         onChange={handlePassword}
       />
       {!isLoginMode && (
-        <AuthInput
+        <FormInput
           id="Repeat password"
           type="password"
           placeholder="Repeat Password"
@@ -221,7 +220,7 @@ const AuthForm: React.FC = () => {
           onChange={handleRepeatedPassword}
         />
       )}
-      <AuthButton
+      <FormButton
         isLoading={formData.isLoading}
         text={isLoginMode ? "Login to your account" : "Create an account"}
       />

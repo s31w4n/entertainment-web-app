@@ -1,5 +1,5 @@
 import React from "react";
-import {DetailsSynopsisProps as T} from "@/types"
+import { DetailsSynopsisProps as T } from "@/types";
 
 const DetailsSynopsis: React.FC<T> = ({ description }) => {
   return (

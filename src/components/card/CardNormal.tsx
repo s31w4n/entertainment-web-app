@@ -1,36 +1,28 @@
 import React from "react";
 import { CardProps as T } from "@/types";
-import { CardImage, CardInfo, BookmarkButton } from ".";
+import { CardImage, CardInfo, BookmarkButton } from "..";
 import { useBookmark } from "@/hooks";
 
-const CardTrending: React.FC<T> = ({
-  title,
+const CardNormal: React.FC<T> = ({
   category,
+  title,
+  backdrop_path,
   year,
   rating,
-  backdrop_path,
   id,
 }) => {
   const { isBookmarking, isBookmarked, handleBookmark } = useBookmark(id);
 
   return (
-    <div className="relative cursor-grab active:cursor-grabbing">
+    <div className="relative">
       <CardImage
-        isTrending
         backdrop_path={backdrop_path}
         alt={title}
         id={id}
         category={category}
       />
-      <CardInfo
-        isTrending
-        title={title}
-        category={category}
-        year={year}
-        rating={rating}
-      />
+      <CardInfo title={title} category={category} year={year} rating={rating} />
       <BookmarkButton
-        isTrending
         id={id}
         isBookmarking={isBookmarking}
         isBookmarked={isBookmarked}
@@ -40,4 +32,4 @@ const CardTrending: React.FC<T> = ({
   );
 };
 
-export default CardTrending;
+export default CardNormal;

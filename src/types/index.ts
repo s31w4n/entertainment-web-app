@@ -148,8 +148,8 @@ export interface LoadingProps {
 // Auth Form Props
 export interface AuthFormProps {}
 
-// Auth Input Props
-export interface AuthInputProps {
+// Form Input Props
+export interface FormInputProps {
   id: string;
   type: string;
   value: string;
@@ -159,8 +159,8 @@ export interface AuthInputProps {
   error: string;
 }
 
-// Auth Button Props
-export interface AuthButtonProps {
+// Form Button Props
+export interface FormButtonProps {
   isLoading: boolean;
   text: string;
   onClick?: () => void;

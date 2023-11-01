@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import Head from "next/head";
-import { Navigation } from ".";
+import { Navigation } from "..";
 import { useRouter } from "next/router";
 import { Toaster } from "react-hot-toast";
 

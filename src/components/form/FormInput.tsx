@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import { AuthInputProps as T } from "@/types";
+import { FormInputProps as T } from "@/types";
 
-const AuthInput: React.FC<T> = ({
+const FormInput: React.FC<T> = ({
   id,
   type,
   value,
@@ -49,4 +49,4 @@ const AuthInput: React.FC<T> = ({
   );
 };
 
-export default AuthInput;
+export default FormInput;

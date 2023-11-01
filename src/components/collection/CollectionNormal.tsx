@@ -1,6 +1,6 @@
 import React from "react";
 import { CollectionProps as T } from "@/types";
-import { CardNormal, Heading, Loading } from ".";
+import { CardNormal, Heading, Loading } from "..";
 
 const CollectionNormal: React.FC<T> = ({ data, title }) => {
   return (

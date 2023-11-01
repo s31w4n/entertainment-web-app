@@ -1,7 +1,7 @@
 import "swiper/css";
 import React from "react";
 import { CollectionProps as T } from "@/types";
-import { CardTrending, Heading, Loading } from ".";
+import { CardTrending, Heading, Loading } from "..";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 const CollectionTrending: React.FC<T> = ({ data, title }) => {

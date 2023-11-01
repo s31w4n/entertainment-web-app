@@ -1,8 +1,8 @@
 import React from "react";
-import { AuthButtonProps as T } from "@/types";
-import { Loading } from ".";
+import { FormButtonProps as T } from "@/types";
+import { Loading } from "..";
 
-const AuthButton: React.FC<T> = ({ isLoading, text, onClick }) => {
+const FormButton: React.FC<T> = ({ isLoading, text, onClick }) => {
   const bgColor = isLoading ? "bg-app-white" : "bg-app-red";
   return (
     <button
@@ -14,4 +14,4 @@ const AuthButton: React.FC<T> = ({ isLoading, text, onClick }) => {
   );
 };
 
-export default AuthButton;
+export default FormButton;
